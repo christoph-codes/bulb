@@ -4,7 +4,8 @@
   "description": "Bulb, the idea community for ideators",
   "main": "index.js",
   "scripts": {
-    "install": "cd backend && yarn install"
+    "install": "cd backend && yarn install",
+    "start": "cd backend && yarn start & cd frontend && yarn start"
   },
   "repository": {
     "type": "git",
