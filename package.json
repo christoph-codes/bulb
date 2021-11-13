@@ -1,0 +1,28 @@
+{
+  "name": "bulb",
+  "version": "1.0.0",
+  "description": "Bulb, the idea community for ideators",
+  "main": "index.js",
+  "scripts": {
+    "install": "cd backend && yarn install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/christoph-codes/bulb.git"
+  },
+  "keywords": [
+    "node",
+    "reactjs",
+    "nextjs",
+    "express",
+    "javascript",
+    "html",
+    "css"
+  ],
+  "author": "Christopher Jones",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/christoph-codes/bulb/issues"
+  },
+  "homepage": "https://github.com/christoph-codes/bulb#readme"
+}
