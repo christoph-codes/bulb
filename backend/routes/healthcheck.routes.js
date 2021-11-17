@@ -1,3 +1,4 @@
+const db = require('../config/mongodb');
 const healthcheck = (req, res) => {
 	try {
 		console.log('Everything is healthy');

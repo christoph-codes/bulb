@@ -25,5 +25,8 @@
   "bugs": {
     "url": "https://github.com/christoph-codes/bulb/issues"
   },
-  "homepage": "https://github.com/christoph-codes/bulb#readme"
+  "homepage": "https://github.com/christoph-codes/bulb#readme",
+  "dependencies": {
+    "mongodb": "^4.1.4"
+  }
 }
