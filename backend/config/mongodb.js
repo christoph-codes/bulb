@@ -1,13 +1,16 @@
 const dotenv = require('dotenv');
 const { MongoClient } = require('mongodb');
 
-dotenv.config({ path: '../.env' });
+dotenv.config();
 
 const db = async (collection) => {
-	console.log('db:', process.env.MONGODB_URI);
-	const client = await MongoClient.connect(process.env.MONGODB_URI);
-	console.log(client);
-	return client.db(process.env.MONGODB_DB).collection(collection);
+	try {
+		const client = await MongoClient.connect(process.env.MONGODB_URI);
+		console.log(client);
+		return client.db(process.env.MONGODB_NAME).collection(collection);
+	} catch (error) {
+		console.log(error);
+	}
 };
 
 module.exports = db;

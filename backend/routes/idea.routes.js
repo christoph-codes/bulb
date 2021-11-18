@@ -1,27 +1,51 @@
 const db = require('../config/mongodb');
 const createIdea = async (req, res) => {
+	const {
+		name,
+		description,
+		desiredAudience,
+		industry,
+		firstThoughtDate,
+		pitch,
+		desiredDomain,
+		officialDomain,
+		notes,
+		doubts,
+		announcements,
+		contributors,
+		ownerId,
+		category,
+	} = req.body;
 	try {
 		const newIdea = {
-			name: 'Bulb',
-			description: '',
-			desiredAudience: '',
-			industry: '',
-			firstThoughtDate: new Date(),
-			pitch: '',
-			desiredDomain: '',
-			officialDomain: '',
-			notes: [],
-			doubts: [],
+			name,
+			description,
+			desiredAudience,
+			industry,
+			firstThoughtDate: firstThoughtDate || new Date(),
+			pitch,
+			desiredDomain,
+			officialDomain,
+			notes,
+			doubts,
 			lastUpdated: new Date(),
-			announcements: [],
+			announcements,
 			creationDate: new Date(),
-			contributors: [],
+			contributors,
+			ownerId,
+			category,
 		};
-		const result = await db('ideas').insertOne(newIdea);
-		console.log(result);
-		res.send({ status: 'Added a new idea' });
+
+		try {
+			const ideaCollection = await db('ideas');
+			console.log('ideaCollection', ideaCollection);
+			const result = ideaCollection.insertOne(newIdea);
+			res.send({ whatwegotback: result });
+		} catch (error) {
+			console.log('error', error);
+		}
 	} catch (err) {
-		res.send({ status: err });
+		res.send({ status: 'This is broke' });
 	}
 };
 module.exports = { createIdea };
