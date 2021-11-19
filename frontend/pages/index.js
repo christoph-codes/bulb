@@ -1,9 +1,12 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import styles from '../styles/Home.module.css';
+import styles from '../styles/Home.module.sass';
 import fullColorLogo from '../public/logo-full-color.png';
+import { useState } from 'react';
 
 export default function Home() {
+  const [ isMenuActive, setIsMenuActive ] = useState(false);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -12,7 +15,8 @@ export default function Home() {
         <link rel='icon' href='/bulb-favicon.ico' />
       </Head>
 
-      <main className={styles.main}>
+      <main className={`${styles.main} ${isMenuActive ? styles.inactive : ''}`}
+            onClick={() => setIsMenuActive(!isMenuActive)}>
         <h1 className={styles.title}>
           Get Started With <b>bulb</b>💡
         </h1>
