@@ -38,9 +38,8 @@ const createIdea = async (req, res) => {
 
 		try {
 			const ideaCollection = await db('ideas');
-			console.log('ideaCollection', ideaCollection);
-			const result = ideaCollection.insertOne(newIdea);
-			res.send({ whatwegotback: result });
+			const result = await ideaCollection.insertOne(newIdea);
+			res.send({ successful: result.acknowledged });
 		} catch (error) {
 			console.log('error', error);
 		}
