@@ -5,8 +5,6 @@ import fullColorLogo from '../public/logo-full-color.png';
 import { useState } from 'react';
 
 export default function Home() {
-  const [ isMenuActive, setIsMenuActive ] = useState(false);
-
   return (
     <div className={styles.container}>
       <Head>
@@ -15,10 +13,13 @@ export default function Home() {
         <link rel='icon' href='/bulb-favicon.ico' />
       </Head>
 
-      <main className={`${styles.main} ${isMenuActive ? styles.inactive : ''}`}
-            onClick={() => setIsMenuActive(!isMenuActive)}>
+      <main className={styles.main}>
         <h1 className={styles.title}>
-          Get Started With <b>bulb</b>💡
+          <span>Get Started</span>
+          <span className={styles.bulbHover}>
+            With <b>bulb</b>
+            <span>💡</span>
+          </span>
         </h1>
       </main>
 
