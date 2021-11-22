@@ -28,12 +28,6 @@ $secondary-color: #e2f2ff
     width: 0
     height: 100%
     background-color: $secondary-color
-    
-  &:hover
-    opacity: 100%
-
-    &:after
-      width: 100%
 
 .footer 
   display: flex
@@ -50,12 +44,12 @@ $secondary-color: #e2f2ff
     flex-grow: 1
 
 .title 
-  a 
-    color: #0070f3
-    text-decoration: none
+  &:hover
+    .bulbHover
+      opacity: 100%
 
-    &:hover, &:focus, &:active 
-      text-decoration: underline
+      &:after
+        width: 100%
 
   span
     position: relative
