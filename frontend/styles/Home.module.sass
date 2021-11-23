@@ -1,5 +1,5 @@
-$primary-color: #0020ea
-$secondary-color: #e2f2ff
+$primary-color:  #0020ea
+$bg-color: #e2f2ff
   
 .container
   padding: 0 2rem
@@ -27,13 +27,13 @@ $secondary-color: #e2f2ff
     right: 0
     width: 0
     height: 100%
-    background-color: $secondary-color
+    background-color: $bg-color
 
 .footer 
   display: flex
   flex: 1
   padding: 2rem 0
-  border-top: 1px solid $secondary-color
+  border-top: 1px solid $primary-color
   justify-content: center
   align-items: center
 
@@ -44,7 +44,21 @@ $secondary-color: #e2f2ff
     flex-grow: 1
 
 .title 
+  &:before
+    content: ''
+    position: absolute
+    top: 0
+    left: 0
+    background-color: $primary-color
+    height: 30rem
+    width: 100%
+    clip-path: polygon(10% 19%, 97% 12%, 95% 82%, 1% 71%)
+    transition: clip-path 0.3s
+
   &:hover
+    &:before
+      clip-path: polygon(0 25%, 100% 25%, 100% 75%, 0 75%)
+
     .bulbHover
       opacity: 100%
 
@@ -59,10 +73,9 @@ $secondary-color: #e2f2ff
     &:first-child
       background-color: #e2f2ff
 
-  position: relative
   margin: 0
   line-height: 1.15
-  font-size: 4rem
+  font-size: 7vw
   text-align: center
 
 .description 
