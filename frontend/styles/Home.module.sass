@@ -29,6 +29,13 @@ $bg-color: #e2f2ff
     height: 100%
     background-color: $bg-color
 
+.bgShape
+  position: absolute
+  height: 20rem
+  width: 100%
+  background-color: $primary-color
+  clip-path: polygon(5% 10%, 95% 12%, 95% 90%, 3% 80%)
+
 .footer 
   display: flex
   flex: 1
@@ -44,21 +51,7 @@ $bg-color: #e2f2ff
     flex-grow: 1
 
 .title 
-  &:before
-    content: ''
-    position: absolute
-    top: 0
-    left: 0
-    background-color: $primary-color
-    height: 30rem
-    width: 100%
-    clip-path: polygon(10% 19%, 97% 12%, 95% 82%, 1% 71%)
-    transition: clip-path 0.3s
-
   &:hover
-    &:before
-      clip-path: polygon(0 25%, 100% 25%, 100% 75%, 0 75%)
-
     .bulbHover
       opacity: 100%
 

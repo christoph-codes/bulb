@@ -1,0 +1,60 @@
+$primary-color:  #0020ea
+$bg-color: #e2f2ff
+
+.container
+    background-color: $primary-color
+
+.form
+    position: relative
+    min-height: 100vh
+    padding: 3rem 0
+    display: flex
+    flex-direction: column
+    justify-content: center
+
+    button
+        margin: 0 auto
+        z-index: 1
+
+.creds
+    border: solid 2px blue
+    height: 2rem
+
+.username, .password
+    z-index: 1
+    padding-top: 1rem
+    margin: 0 auto
+
+    label
+        width: 100%
+        font-size: 2rem
+        color: $primary-color
+
+.loginText
+    z-index: 2
+    color: $bg-color
+    text-align: center
+
+.lightController
+    content: ''
+    position: absolute
+    top: 0
+    left: 0
+    z-index: 0
+    background-color: $bg-color
+    height: 100%
+    width: 100%
+    transition: clip-path 0.5s
+    clip-path: circle(75% at 50% 50%)
+    
+.animateLight
+    clip-path: circle(30% at 50% 50%)
+
+.loginButton
+    border: solid 2px blue
+    color: $primary-color
+    background-color: #fff
+
+    &:hover 
+        + .lightController
+            clip-path: circle(0% at 50% 67%)

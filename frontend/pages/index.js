@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.sass';
 import fullColorLogo from '../public/logo-full-color.png';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -13,13 +14,18 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          <span>Get Started</span>
-          <span className={styles.bulbHover}>
-            With <b>bulb</b>
-            <span>💡</span>
-          </span>
-        </h1>
+        <span className={styles.bgShape}></span>
+        <Link href='/login'>
+          <a>
+            <h1 className={styles.title}>
+              <span>Get Started</span>
+              <span className={styles.bulbHover}>
+                With <b>bulb</b>
+                <span>💡</span>
+              </span>
+            </h1>
+          </a>
+        </Link>
       </main>
 
       <footer className={styles.footer}>
