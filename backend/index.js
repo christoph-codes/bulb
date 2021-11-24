@@ -26,9 +26,11 @@ app.use(express.json());
 // All routes
 app.use('/', routes);
 
-// app.get('*', (req, res) => {
-// 	res.sendFile(path.join(`${__dirname}/build/index.html`));
-// });
+app.get('*', (req, res) => {
+	// res.sendFile(path.join(`${__dirname}/build/index.html`));
+	// Catch all route that just throws a 404 error.
+	res.status(404).send('This is not a valid url you are trying to reach');
+});
 
 app.listen(port, () => {
 	console.log(`Backend listening on ${port}`);
