@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "install": "cd backend && yarn install",
-    "start": "cd backend && yarn start & cd frontend && yarn start"
+    "backend": "cd backend && yarn start",
+    "emu": "cd backend && firebase emulators:start",
+    "frontend": "cd frontend && yarn dev",
+    "kill": "kill-port 5000 #This is to kill port 5000 for the backend",
+    "start": "yarn backend && yarn frontend"
   },
   "repository": {
     "type": "git",
