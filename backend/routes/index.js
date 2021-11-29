@@ -1,11 +1,12 @@
 const router = require('express').Router();
 const healthcheck = require('./healthcheck.routes');
-const { authHealthcheck, login, createUser } = require('./auth.routes');
+const { authCheck, login, createUser } = require('./auth.routes');
 const {
 	createIdea,
 	getAllIdeas,
 	getUserIdeas,
 	deleteIdea,
+	getIdea,
 } = require('./idea.routes');
 
 // Healthcheck to ensure you are connected to the database
@@ -20,9 +21,11 @@ router.get('/:userId/ideas', getUserIdeas);
 router.post('/:userId/ideas/create', createIdea);
 // Creates a new idea and writes to the database
 router.post('/:userId/ideas/:ideaId/delete', deleteIdea);
+// Get a single idea
+router.get('/ideas/:ideaId', getIdea);
 
 // ------- AUTH -------- //
-router.get('/authcheck', authHealthcheck);
+router.get('/authcheck', authCheck);
 // TODO: Create login route for a user
 router.post('/auth/login', login);
 // TODO: Create new user route
