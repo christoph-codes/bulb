@@ -1,19 +1,23 @@
 const { fireAuth, auth } = require('../config/firebase');
 const db = require('../config/mongodb');
 
-const authHealthcheck = async (req, res) => {
+const authCheck = async (req, res) => {
 	try {
-		const authentication = await auth.getAuth();
-		auth.onAuthStateChanged(authentication, (user) => {
+		fireAuth.onAuthStateChanged(auth, (user) => {
 			if (user) {
-				console.log('user: ', user);
+				res.status(200).send(user.stsTokenManager);
 			} else {
 				// User is signed out
-				console.log('User is not logged in');
+				res.status(401).send({
+					error: { message: 'User is not logged in' },
+				});
 			}
 		});
 	} catch (err) {
-		console.log('err: ', err);
+		console.log('err:', err);
+		res.status(500).send({
+			error: { message: 'There was an issue connecting to the server' },
+		});
 	}
 };
 
@@ -116,4 +120,4 @@ const login = async (req, res) => {
 
 // Create get token call before all datbase calls from firebase
 
-module.exports = { authHealthcheck, login, createUser };
+module.exports = { authCheck, login, createUser };
