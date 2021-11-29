@@ -54,6 +54,7 @@ const createIdea = async (req, res) => {
 		announcements,
 		contributors,
 		category,
+		visibility,
 	} = req.body;
 	if (!userId) {
 		res.status(400).send({
@@ -87,6 +88,7 @@ const createIdea = async (req, res) => {
 				contributors: contributors || [],
 				ownerId: userId,
 				category: category || '',
+				visibility: visibility || 'public',
 			};
 
 			try {
