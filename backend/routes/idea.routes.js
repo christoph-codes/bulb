@@ -4,9 +4,14 @@ const getAllIdeas = async (req, res) => {
 	try {
 		const ideaCollection = await db('ideas');
 		const result = await ideaCollection.find({}).toArray();
-		res.status(200).json(result);
+		res.status(200).send(result);
 	} catch (err) {
 		console.log(err, 'There was a database error');
+		res.status(500).send({
+			error: {
+				message: err.message,
+			},
+		});
 	}
 };
 const getUserIdeas = async (req, res) => {
@@ -17,13 +22,19 @@ const getUserIdeas = async (req, res) => {
 			const result = await ideaCollection
 				.find({ ownerId: userId })
 				.toArray();
-			res.status(200).json(result);
+			res.status(200).send(result);
 		} catch (err) {
-			console.log(err, 'There was a database error');
+			res.status(500).send({
+				error: {
+					message: 'There was a database error',
+				},
+			});
 		}
 	} else {
-		res.status(400).json({
-			error: 'No user has been declared to grab the user ideas.',
+		res.status(400).send({
+			error: {
+				message: 'No user has been declared to grab the user ideas.',
+			},
 		});
 	}
 };
@@ -46,12 +57,16 @@ const createIdea = async (req, res) => {
 	} = req.body;
 	if (!userId) {
 		res.status(400).send({
-			error: 'Only valid users can create a new idea',
+			error: {
+				message: 'Only valid users can create a new idea',
+			},
 		});
 	}
 	if (!description) {
 		res.status(400).send({
-			error: 'You must enter a description for your idea.',
+			error: {
+				message: 'You must enter a description for your idea.',
+			},
 		});
 	} else {
 		try {
@@ -77,18 +92,62 @@ const createIdea = async (req, res) => {
 			try {
 				const ideaCollection = await db('ideas');
 				const result = await ideaCollection.insertOne(newIdea);
-				res.send({ successful: result.acknowledged });
+				res.status(200).send({ successful: result.acknowledged });
 			} catch (error) {
 				console.log('error', error);
+				res.status(500).send({
+					error: {
+						message: error.message,
+					},
+				});
 			}
 		} catch (err) {
-			res.send({ status: 'This is broke' });
+			console.log('err', err);
+			res.status(500).send({
+				error: {
+					message: err.message,
+				},
+			});
 		}
 	}
 };
 // Route to properly delete an idea from the database
+const getIdea = async (req, res) => {
+	const idea = req.params.ideaId;
+	if (idea) {
+		if (ObjectId.isValid(idea)) {
+			try {
+				const ideaCollection = await db('ideas');
+				const result = await ideaCollection.findOne({
+					_id: ObjectId(idea),
+					// TODO: Add visibility
+				});
+				console.log('result', result);
+				res.status(200).send(result);
+			} catch (err) {
+				res.status(500).send({
+					error: {
+						message: 'Something failed while accessing this record',
+					},
+				});
+			}
+		} else {
+			res.status(400).send({
+				error: {
+					message: 'Invalid idea id',
+				},
+			});
+		}
+	} else {
+		res.status(400).send({
+			error: {
+				message: 'You must provide a valid idea id',
+			},
+		});
+	}
+};
+// Route to properly delete an idea from the database
 const deleteIdea = async (req, res) => {
-	const user = req.params.userId;
 	const idea = req.params.ideaId;
 	if (ObjectId.isValid(idea) && user) {
 		try {
@@ -98,17 +157,28 @@ const deleteIdea = async (req, res) => {
 				ownerId: user,
 			});
 			if (result.deletedCount === 1) {
-				res.status(400).send(
-					'This record was not deleted. It may not exist in our database',
-				);
+				res.status(400).send({
+					error: {
+						message:
+							'This record was not deleted. It may not exist in our database',
+					},
+				});
 			} else {
 				res.status(200).send('Idea was successfully deleted.');
 			}
 		} catch (err) {
-			res.status(500).send('Something failed deleting this record');
+			res.status(500).send({
+				error: {
+					message: 'Something failed deleting this record',
+				},
+			});
 		}
 	} else {
-		res.status(400).send('You must include a idea id to properly delete');
+		res.status(500).send({
+			error: {
+				message: 'You must include a idea id to properly delete',
+			},
+		});
 	}
 };
-module.exports = { createIdea, getAllIdeas, getUserIdeas, deleteIdea };
+module.exports = { createIdea, getAllIdeas, getUserIdeas, deleteIdea, getIdea };
