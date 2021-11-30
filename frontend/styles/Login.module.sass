@@ -12,18 +12,18 @@ $bg-color: #e2f2ff
     flex-direction: column
     justify-content: center
 
-    button
-        margin: 0 auto
-        z-index: 1
-
 .creds
     border: solid 2px blue
     height: 2rem
+    
+    &.invalidInput
+        border-color: red
 
 .username, .password
     z-index: 1
-    padding-top: 1rem
     margin: 0 auto
+    padding: 0.5rem 0
+    text-align: center
 
     label
         width: 100%
@@ -34,6 +34,7 @@ $bg-color: #e2f2ff
     z-index: 2
     color: $bg-color
     text-align: center
+    font-size: 2rem
 
 .lightController
     content: ''
@@ -47,14 +48,35 @@ $bg-color: #e2f2ff
     transition: clip-path 0.5s
     clip-path: circle(75% at 50% 50%)
     
-.animateLight
-    clip-path: circle(30% at 50% 50%)
+    &.loadedLight
+        clip-path: circle(30% at 50% 50%)
+
+    &.submitLight
+        clip-path: circle(0% at 50% 60%)
 
 .loginButton
     border: solid 2px blue
     color: $primary-color
-    background-color: #fff
+    // background-color: #fff
+    margin: 0 auto
+    z-index: 1
 
     &:hover 
-        + .lightController
-            clip-path: circle(0% at 50% 67%)
+        + .loadedLight
+            clip-path: circle(100px at 50% 60%)
+
+.spinner
+    text-align: center
+    z-index: 1
+
+    svg
+        color: $bg-color
+        font-size: 2rem
+        animation: spin 2s linear infinite
+
+
+@keyframes spin 
+  0%  
+      transform: rotate(0deg)
+  100%  
+      transform: rotate(360deg)
