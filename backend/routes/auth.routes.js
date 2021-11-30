@@ -21,7 +21,7 @@ const authCheck = async (req, res) => {
 	}
 };
 
-const createUser = async (req, res) => {
+const createAuth = async (req, res) => {
 	const { email, password, fname, lname } = req.body;
 	if (email && password && fname && lname) {
 		// Create new account
@@ -58,6 +58,33 @@ const createUser = async (req, res) => {
 			error: {
 				message:
 					'You must enter all of the required fields to create an account.',
+			},
+		});
+	}
+};
+
+const resetPassword = async (req, res) => {
+	await console.log('reset password');
+};
+
+const logout = async (req, res) => {
+	try {
+		await fireAuth
+			.signOut(auth)
+			.then(() => {
+				res.status(200).send('Successfully logged out user');
+			})
+			.catch((err) => {
+				res.status(400).send({
+					error: {
+						message: 'Something went wrong logging out',
+					},
+				});
+			});
+	} catch {
+		res.status(500).send({
+			error: {
+				message: 'Something went wrong logging out',
 			},
 		});
 	}
@@ -120,4 +147,4 @@ const login = async (req, res) => {
 
 // Create get token call before all datbase calls from firebase
 
-module.exports = { authCheck, login, createUser };
+module.exports = { authCheck, login, createAuth, resetPassword, logout };
