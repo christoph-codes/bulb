@@ -16,8 +16,9 @@ const LoginForm = () => {
     setIsLoaded(true);
   }, []);
 
-  const redirectToUserPage = (userData) => {
-    router.push('/user');
+  const redirectToDashboard = (userData) => {
+    sessionStorage.setItem('user', userData);
+    router.push('/dashboard');
   };
 
   const submitCreds = () => {
@@ -34,7 +35,7 @@ const LoginForm = () => {
       .then(async (response) => {
         if (response.status === 200) {
           const data = await response.json();
-          redirectToUserPage(data);
+          redirectToDashboard(data);
         } else if (response.status === 401) {
           highlightInputs();
         }

@@ -1,0 +1,20 @@
+$primary-color: #0020ea
+$bg-color: #e2f2ff
+
+.card
+  border-radius: 0.25rem
+  width: 75vw
+  height: 10vh
+  color: $primary-color
+  background-color: $bg-color
+  clip-path: circle(100% at 50% 50%)
+  transition: clip-path 1s ease-out, width 0.5s, min-height 0.5s
+  padding: 1rem
+  margin: 1rem
+  cursor: pointer
+
+  &.loading
+    clip-path: circle(0 at 50% 50%)
+
+  &:hover
+    width: 80vw
