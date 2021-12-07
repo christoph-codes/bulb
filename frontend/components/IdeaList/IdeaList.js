@@ -6,7 +6,7 @@ import styles from '../../styles/List.module.sass';
 const IdeaList = () => {
   const [ideaList, setIdeaList] = useState([]);
 
-  const getIdeas = () => {
+  const getIdeasFromApi = () => {
     fetch('/api/ideas', { method: 'GET' })
       .then(async (response) => {
         if (response.status === 200) {
@@ -22,7 +22,7 @@ const IdeaList = () => {
   };
 
   useEffect(() => {
-    getIdeas();
+    getIdeasFromApi();
   }, []);
 
   return (
@@ -30,7 +30,12 @@ const IdeaList = () => {
       {ideaList.map((idea, i) => {
         return (
           <li>
-            <IdeaCard name={idea.name} position={i} key={i} />
+            <IdeaCard
+              name={idea.name}
+              description={idea.description}
+              position={i}
+              key={i}
+            />
           </li>
         );
       })}

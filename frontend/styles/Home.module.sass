@@ -1,10 +1,11 @@
-$primary-color:  #0020ea
+$primary-color: #0020ea
 $bg-color: #e2f2ff
-  
+
 .container
   padding: 0 2rem
 
 .main
+  position: relative
   min-height: 100vh
   padding: 4rem 0
   flex: 1
@@ -12,6 +13,11 @@ $bg-color: #e2f2ff
   flex-direction: column
   justify-content: center
   align-items: center
+  right: 0
+  transition: right 0.5s
+
+  &.unloading
+    right: 100%
 
 .bulbHover
   opacity: 50%
@@ -36,7 +42,7 @@ $bg-color: #e2f2ff
   background-color: $primary-color
   clip-path: polygon(5% 10%, 95% 12%, 95% 90%, 3% 80%)
 
-.footer 
+.footer
   display: flex
   flex: 1
   padding: 2rem 0
@@ -50,7 +56,7 @@ $bg-color: #e2f2ff
     align-items: center
     flex-grow: 1
 
-.title 
+.title
   &:hover
     .bulbHover
       opacity: 100%
@@ -62,36 +68,36 @@ $bg-color: #e2f2ff
     position: relative
     z-index: 1
     padding: 0 0.5rem
-    
+
     &:first-child
       background-color: #e2f2ff
 
-  margin: 0
-  line-height: 1.15
-  font-size: 7vw
-  text-align: center
+      margin: 0
+      line-height: 1.15
+      font-size: 7vw
+      text-align: center
 
-.description 
+.description
   text-align: center
   margin: 4rem 0
   line-height: 1.5
   font-size: 1.5rem
 
-.code 
+.code
   background: #fafafa
   border-radius: 5px
   padding: 0.75rem
   font-size: 1.1rem
   font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace
 
-.grid 
+.grid
   display: flex
   align-items: center
   justify-content: center
   flex-wrap: wrap
   max-width: 800px
 
-.card 
+.card
   margin: 1rem
   padding: 1.5rem
   text-align: left
@@ -102,24 +108,24 @@ $bg-color: #e2f2ff
   transition: color 0.15s ease, border-color 0.15s ease
   max-width: 300px
 
-  &:hover, &:focus, &:active 
+  &:hover, &:focus, &:active
     color: #0070f3
     border-color: #0070f3
 
-  h2 
+  h2
     margin: 0 0 1rem 0
     font-size: 1.5rem
 
-  p 
+  p
     margin: 0
     font-size: 1.25rem
     line-height: 1.5
 
-.logo 
+.logo
   height: 1em
   margin-left: 0.5rem
 
-@media (max-width: 600px) 
-  .grid 
+@media (max-width: 600px)
+  .grid
     width: 100%
     flex-direction: column
