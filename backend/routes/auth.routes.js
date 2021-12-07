@@ -1,11 +1,13 @@
 const { fireAuth, auth } = require('../config/firebase');
 const db = require('../config/mongodb');
 
-const authCheck = async (req, res) => {
+const authCheck = async (req, res, next) => {
 	try {
 		fireAuth.onAuthStateChanged(auth, (user) => {
 			if (user) {
-				res.status(200).send(user.stsTokenManager);
+				res.status(200);
+				req.body.userToken = user.stsTokenManager;
+				next();
 			} else {
 				// User is signed out
 				res.status(401).send({
@@ -64,30 +66,8 @@ const createAuth = async (req, res) => {
 };
 
 const resetPassword = async (req, res) => {
+	// TODO: Create reset password function
 	await console.log('reset password');
-};
-
-const logout = async (req, res) => {
-	try {
-		await fireAuth
-			.signOut(auth)
-			.then(() => {
-				res.status(200).send('Successfully logged out user');
-			})
-			.catch((err) => {
-				res.status(400).send({
-					error: {
-						message: 'Something went wrong logging out',
-					},
-				});
-			});
-	} catch {
-		res.status(500).send({
-			error: {
-				message: 'Something went wrong logging out',
-			},
-		});
-	}
 };
 
 const login = async (req, res) => {
@@ -99,6 +79,7 @@ const login = async (req, res) => {
 				.then(async (userCred) => {
 					const user = userCred.user;
 					const userCollection = await db('users');
+					console.log(userCollection);
 					// TODO: Create route for creating a new user and inserting all of this.
 					const newUser = await userCollection.findOne({
 						_id: user.uid,
@@ -138,6 +119,13 @@ const login = async (req, res) => {
 					}
 				});
 		} catch (err) {
+			if (err) {
+				res.status(400).send({
+					error: {
+						message: err.message,
+					},
+				});
+			}
 			res.status(400).send('Big issue with authentication');
 		}
 	} else {
@@ -145,6 +133,27 @@ const login = async (req, res) => {
 	}
 };
 
-// Create get token call before all datbase calls from firebase
+const logout = async (req, res) => {
+	try {
+		await fireAuth
+			.signOut(auth)
+			.then(() => {
+				res.status(200).send('Successfully logged out user');
+			})
+			.catch((err) => {
+				res.status(400).send({
+					error: {
+						message: 'Something went wrong logging out',
+					},
+				});
+			});
+	} catch {
+		res.status(500).send({
+			error: {
+				message: 'Something went wrong logging out',
+			},
+		});
+	}
+};
 
 module.exports = { authCheck, login, createAuth, resetPassword, logout };

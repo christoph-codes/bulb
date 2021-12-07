@@ -1,4 +1,4 @@
-const ObjectId = require('mongodb').ObjectId;
+const { ObjectId } = require('mongodb');
 const db = require('../config/mongodb');
 const getAllIdeas = async (req, res) => {
 	try {

@@ -6,7 +6,7 @@ const {
 	createAuth,
 	resetPassword,
 	logout,
-	deleteAccount,
+	deleteAuth,
 } = require('./auth.routes');
 const {
 	createUser,
@@ -38,27 +38,30 @@ router.post('/ideas/:ideaId/delete', deleteIdea);
 router.get('/ideas/:ideaId', getIdea);
 
 // ------- AUTH -------- //
-router.get('/auth', authCheck);
 // Create login route for a user
 router.post('/auth/login', login);
-// Create new auth user route
-router.post('/auth/createAccount', createAuth, createUser);
 // TODO: Submit a forgot your password route for users who have lost their password
-router.post('/auth/resetPassword', resetPassword);
+// router.post('/auth/resetPassword', resetPassword);
 // Logout user
 router.get('/auth/logout', logout);
+// TODO: Delete auth account
+// router.get('/auth/:authid/delete', deleteAuth);
 
 // ------- USER -------- //
 // Create new user in the database
 router.post('/users/create', createUser);
 // Get a single user by id
-router.post('/users/:userId', getUser);
+// router.post('/users/:userId', getUser);
 // Update a single user
 router.post('/users/:userId/update', authCheck, updateUser);
-// Delete Account
-router.post('/users/:userId/delete', authCheck, deleteAccount);
-// Delete user from database
-router.post('/users/:userId/delete', authCheck, deleteUser);
+// TODO: Delete user from database
+// router.post('/users/:userId/delete', authCheck, deleteUser);
+
+// ------- ACCOUNTS -------- //
+// Create new auth user route
+// router.post('/createAccount', createAuth, createUser);
+// Delete new auth user route
+// router.post('/:id/removeAccount', deleteAuth, deleteUser);
 
 // ------- ANNOUNCEMENTS -------- //
 // TODO: Get all announcements route for a specific idea
