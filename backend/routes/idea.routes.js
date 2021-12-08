@@ -62,6 +62,7 @@ const createIdea = async (req, res) => {
 				message: 'Only valid users can create a new idea',
 			},
 		});
+		return;
 	}
 	if (!description) {
 		res.status(400).send({

@@ -39,7 +39,7 @@ router.get('/ideas/:ideaId', getIdea);
 
 // ------- AUTH -------- //
 // Create login route for a user
-router.post('/auth/login', login);
+router.post('/auth/login', login, updateUser);
 // TODO: Submit a forgot your password route for users who have lost their password
 // router.post('/auth/resetPassword', resetPassword);
 // Logout user
@@ -51,7 +51,7 @@ router.get('/auth/logout', logout);
 // Create new user in the database
 router.post('/users/create', createUser);
 // Get a single user by id
-// router.post('/users/:userId', getUser);
+router.get('/users/get', authCheck, getUser);
 // Update a single user
 router.post('/users/:userId/update', authCheck, updateUser);
 // TODO: Delete user from database
@@ -59,9 +59,9 @@ router.post('/users/:userId/update', authCheck, updateUser);
 
 // ------- ACCOUNTS -------- //
 // Create new auth user route
-// router.post('/createAccount', createAuth, createUser);
+router.post('/createAccount', createAuth, createUser);
 // Delete new auth user route
-// router.post('/:id/removeAccount', deleteAuth, deleteUser);
+router.post('/removeAccount', authCheck, deleteAuth, deleteUser);
 
 // ------- ANNOUNCEMENTS -------- //
 // TODO: Get all announcements route for a specific idea

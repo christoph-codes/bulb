@@ -1,22 +1,22 @@
-const { ObjectId } = require('mongodb');
 const db = require('../config/mongodb');
 
-const createUser = async (req, res) => {
+const createUser = async (req, res, next) => {
 	const { user } = req.body;
 	if (user) {
-		// continue creating the user
 		try {
 			const dbUsers = await db('users');
 			const results = await dbUsers.insertOne(user);
-			console.log('results:', results);
-			if (results.acknowledged === true) {
-				res.status(200).json({
+			if (results.insertedId) {
+				res.status(200).send({
 					message: 'User created successfully',
-					user: user,
+					user,
 				});
 			} else {
 				res.status(400).send({
-					error: { message: 'No document was created.' },
+					userCreated: {
+						message: 'User not created',
+					},
+					error: { message: 'No user was written to the database.' },
 				});
 			}
 		} catch (err) {
@@ -28,9 +28,10 @@ const createUser = async (req, res) => {
 			res.status(500).send({
 				error: {
 					message:
-						'There was an issue creating the user on the server',
+						'There was an issue creating the user on the server.',
 				},
 			});
+			return;
 		}
 	} else {
 		res.status(400).send({
@@ -44,69 +45,62 @@ const createUser = async (req, res) => {
 const getUser = async (req, res) => {
 	const { userId } = req.body;
 	if (!userId) {
-		res.status(400).send({
-			error: { message: 'You must enter a valid id' },
+		res.status(401).send({
+			error: { message: 'A valid user id was not found' },
 		});
 	}
 	try {
-		// Hello
-		const result = await db('users').findOne({
+		const userCollection = await db('users');
+		const result = await userCollection.findOne({
 			_id: userId,
 		});
-		console.log(result);
 		if (result) {
-			res.status(200).send(result);
+			res.status(200).send({
+				message: 'User found',
+				result: result,
+			});
 		} else {
 			res.status(400).send({
 				error: {
-					message: 'There was an issue writing to the database.',
+					message:
+						'There was an issue grabbing the logged in user from the database',
 				},
 			});
 		}
 	} catch (err) {
 		if (err) {
-			console.log(err);
-			res.status(500).send({ error: { message: err.message } });
+			console.log('get user catch err:', err);
+			res.status(500).send({ error: { message: err } });
 		}
 		res.status(500).send({
-			error: { message: 'There was an issue accessing the server' },
+			error: { message: 'There was an issue accessing the database' },
 		});
+		return;
 	}
 };
 
 const updateUser = async (req, res) => {
-	const { userToken } = req.body;
-	const { userId } = req.params; // Grabbing the user id from the path
+	const { userId, updates } = req.body;
 
-	const doc = async () => {
-		if (ObjectId.isValid(userId)) {
-			return { _id: ObjectId(userId) }; // Grabbing the user document from Mongo
-		} else {
-			console.log('Invalid user id');
-		}
-	};
-	console.log('doc:', doc());
-	const { updates } = req.body; // An object of fields to be updated
-	if (!userId) {
+	const doc = userId && { _id: userId };
+	if (!doc) {
 		res.status(400).send({ error: { message: 'No user found' } });
-	}
-	if (!userToken) {
-		res.status(400).send({ error: { message: 'No user token found' } });
+		return;
 	}
 	try {
 		const dbUsers = await db('users');
-
 		const setter = {
 			$set: {
 				...updates,
 			},
 		};
 		// updating user
-		const results = await dbUsers.updateOne(doc(), setter);
-		console.log('results:', results);
+		const results = await dbUsers.updateOne(doc, setter);
 		if (results.modifiedCount === 1) {
-			console.log('results:', results);
-			res.status(200).send('User updated successfully');
+			res.status(200).send({
+				message: 'User updated successfully',
+				result,
+			});
 		} else {
 			res.status(400).send({
 				error: { message: 'No document was updated.' },
@@ -115,6 +109,7 @@ const updateUser = async (req, res) => {
 	} catch (err) {
 		if (err) {
 			res.status(500).send({ error: { message: err.message } });
+			return;
 		}
 		res.status(500).send({
 			error: {
@@ -125,4 +120,34 @@ const updateUser = async (req, res) => {
 	}
 };
 
-module.exports = { createUser, getUser, updateUser };
+// TODO: Create a delete user route
+const deleteUser = async (req, res) => {
+	const { userId } = req.body;
+	try {
+		const usersCollection = await db('users');
+		const result = await usersCollection.deleteOne({ _id: userId });
+		if (result) {
+			res.status(200).send({
+				message: 'User deleted successfully',
+				result,
+			});
+		} else {
+			res.status(401).send({
+				error: { message: 'User not found' },
+			});
+		}
+	} catch (err) {
+		if (err) {
+			res.status(500).send({ error: { message: err.message } });
+		}
+		res.status(500).send({
+			error: {
+				message:
+					'There was an issue deleting the user from the database',
+			},
+		});
+		return;
+	}
+};
+
+module.exports = { createUser, getUser, updateUser, deleteUser };
