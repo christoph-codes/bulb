@@ -29,11 +29,11 @@ router.get('/healthcheck', healthcheck);
 // Gets last 25 ideas from the database
 router.get('/ideas/all', getAllIdeas);
 // Gets a specific users last 10 ideas
-router.get('/ideas/:userId', getUserIdeas);
+router.get('/ideas', authCheck, getUserIdeas);
 // Creates a new idea and writes to the database
-router.post('/ideas/create', createIdea);
+router.post('/ideas/create', authCheck, createIdea);
 // Creates a new idea and writes to the database
-router.post('/ideas/:ideaId/delete', deleteIdea);
+router.post('/ideas/:ideaId/delete', authCheck, deleteIdea);
 // Get a single idea by id
 router.get('/ideas/:ideaId', getIdea);
 

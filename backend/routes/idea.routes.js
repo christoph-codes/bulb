@@ -15,7 +15,7 @@ const getAllIdeas = async (req, res) => {
 	}
 };
 const getUserIdeas = async (req, res) => {
-	const userId = req.params.userId;
+	const { userId } = req.body;
 	if (userId) {
 		try {
 			const ideaCollection = await db('ideas');
@@ -39,7 +39,7 @@ const getUserIdeas = async (req, res) => {
 	}
 };
 const createIdea = async (req, res) => {
-	const userId = req.params.userId;
+	const { userId } = req.body;
 	const {
 		name,
 		description,
@@ -55,7 +55,7 @@ const createIdea = async (req, res) => {
 		contributors,
 		category,
 		visibility,
-	} = req.body;
+	} = req.body.idea;
 	if (!userId) {
 		res.status(400).send({
 			error: {
@@ -75,6 +75,7 @@ const createIdea = async (req, res) => {
 			const newIdea = {
 				name: name || '',
 				description,
+				slug: description.replace(/\s+/g, '-').toLowerCase(),
 				desiredAudience: desiredAudience || '',
 				industry: industry || '',
 				firstThoughtDate: firstThoughtDate || new Date(),
@@ -95,7 +96,18 @@ const createIdea = async (req, res) => {
 			try {
 				const ideaCollection = await db('ideas');
 				const result = await ideaCollection.insertOne(newIdea);
-				res.status(200).send({ successful: result.acknowledged });
+				if (result.insertedId) {
+					res.status(200).send({
+						message: 'Idea created successfully',
+						result: result.insertedId,
+					});
+				} else {
+					res.status(400).send({
+						error: {
+							message: 'Idea could not be created',
+						},
+					});
+				}
 			} catch (error) {
 				console.log('error', error);
 				res.status(500).send({
@@ -121,9 +133,9 @@ const getIdea = async (req, res) => {
 		if (ObjectId.isValid(idea)) {
 			try {
 				const ideaCollection = await db('ideas');
+
 				const result = await ideaCollection.findOne({
 					_id: ObjectId(idea),
-					// TODO: Add visibility
 				});
 				console.log('result', result);
 				res.status(200).send(result);
@@ -151,37 +163,55 @@ const getIdea = async (req, res) => {
 };
 // Route to properly delete an idea from the database
 const deleteIdea = async (req, res) => {
-	const idea = req.params.ideaId;
-	if (ObjectId.isValid(idea) && user) {
-		try {
-			const ideaCollection = await db('ideas');
-			const result = await ideaCollection.deleteOne({
-				_id: ObjectId(idea),
-				ownerId: user,
-			});
-			if (result.deletedCount === 1) {
-				res.status(400).send({
-					error: {
-						message:
-							'This record was not deleted. It may not exist in our database',
-					},
-				});
-			} else {
-				res.status(200).send('Idea was successfully deleted.');
-			}
-		} catch (err) {
-			res.status(500).send({
-				error: {
-					message: 'Something failed deleting this record',
-				},
-			});
-		}
-	} else {
-		res.status(500).send({
+	const { userId } = req.body;
+	const { ideaId } = req.params;
+	if (!userId) {
+		res.status(401).send({
 			error: {
-				message: 'You must include a idea id to properly delete',
+				message: 'You are not authorized to delete this idea',
 			},
 		});
 	}
+	if (!ideaId) {
+		res.status(400).send({
+			error: {
+				message: 'You must provide a valid idea id',
+			},
+		});
+	} else {
+		if (!ObjectId.isValid(ideaId)) {
+			res.status(401).send({
+				error: {
+					message: 'You are not authorized to delete this idea',
+				},
+			});
+		}
+	}
+	try {
+		const ideaCollection = await db('ideas');
+		const result = await ideaCollection.deleteOne({
+			_id: ObjectId(ideaId),
+			ownerId: userId,
+		});
+		if (result.deletedCount === 0) {
+			res.status(400).send({
+				error: {
+					message:
+						'You are not the owner of this idea or the idea does not exist',
+				},
+			});
+		} else {
+			res.status(200).send({
+				message: 'Idea deleted successfully',
+			});
+		}
+	} catch (err) {
+		res.status(500).send({
+			error: {
+				message: 'Something failed deleting this record',
+			},
+		});
+	}
+	return;
 };
 module.exports = { createIdea, getAllIdeas, getUserIdeas, deleteIdea, getIdea };
