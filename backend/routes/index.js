@@ -44,8 +44,6 @@ router.post('/auth/login', login, updateUser);
 // router.post('/auth/resetPassword', resetPassword);
 // Logout user
 router.get('/auth/logout', logout);
-// TODO: Delete auth account
-// router.get('/auth/:authid/delete', deleteAuth);
 
 // ------- USER -------- //
 // Create new user in the database
@@ -54,14 +52,14 @@ router.post('/users/create', createUser);
 router.get('/users/get', authCheck, getUser);
 // Update a single user
 router.post('/users/:userId/update', authCheck, updateUser);
-// TODO: Delete user from database
-// router.post('/users/:userId/delete', authCheck, deleteUser);
 
 // ------- ACCOUNTS -------- //
 // Create new auth user route
 router.post('/createAccount', createAuth, createUser);
 // Delete new auth user route
 router.post('/removeAccount', authCheck, deleteAuth, deleteUser);
+
+// ------- V2 UPDATES -------- //
 
 // ------- ANNOUNCEMENTS -------- //
 // TODO: Get all announcements route for a specific idea
