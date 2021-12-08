@@ -51,7 +51,7 @@ const createAuth = async (req, res, next) => {
 						bio: '',
 						lastLoggedInDate: new Date(),
 					};
-					res.status(200);
+					res.status(201);
 					req.body.user = newUser;
 					next();
 				});

@@ -97,7 +97,7 @@ const createIdea = async (req, res) => {
 				const ideaCollection = await db('ideas');
 				const result = await ideaCollection.insertOne(newIdea);
 				if (result.insertedId) {
-					res.status(200).send({
+					res.status(201).send({
 						message: 'Idea created successfully',
 						result: result.insertedId,
 					});

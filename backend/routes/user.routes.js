@@ -7,7 +7,7 @@ const createUser = async (req, res, next) => {
 			const dbUsers = await db('users');
 			const results = await dbUsers.insertOne(user);
 			if (results.insertedId) {
-				res.status(200).send({
+				res.status(201).send({
 					message: 'User created successfully',
 					user,
 				});
