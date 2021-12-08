@@ -1,0 +1,40 @@
+$primary-color: #0020ea
+$bg-color: #e2f2ff
+$dark-gray: #444
+// $yellow: #fcf28c
+$yellow: #dfe31a
+$yellow-hover: #f4f45a
+$purple: #d29ee9
+$pink: #fd68bf
+$orange: #f8b641
+$green: #c3df2a
+$blue: #62bade
+
+.note
+  width: 15rem
+  color: $dark-gray
+  background-color: $yellow
+  clip-path: circle(100% at 50% 50%)
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.25)
+  padding: 1rem 0
+  margin: 0.5rem
+  text-align: center
+  cursor: pointer
+  font-size: 1rem
+  transition: box-shadow 0.2s, transform 0.25s, background-color 0.5s
+
+  // &.loading
+  //   clip-path: circle(0 at 50% 50%)
+
+  &::after
+    content: ''
+
+  &:hover
+    background-color: $yellow-hover
+    // background: rgb(241,241,103)
+    // background: radial-gradient(circle, rgba(241,241,103,1) 52%, rgba(214,218,60,1) 91%)
+    transform: scale(1.03)
+    box-shadow: 1px 10px 10px rgba(0, 0, 0, 0.15)
+
+  .description
+    padding: 1rem

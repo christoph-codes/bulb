@@ -1,4 +1,4 @@
-import IdeaCard from '../IdeaCard/IdeaCard';
+import IdeaNote from '../IdeaNote/IdeaNote';
 import { useEffect, useState } from 'react';
 import router from 'next/router';
 import styles from '../../styles/List.module.sass';
@@ -26,11 +26,11 @@ const IdeaList = () => {
   }, []);
 
   return (
-    <ul className={styles.list} tabIndex={0}>
+    <ul className={styles.list}>
       {ideaList.map((idea, i) => {
         return (
           <li>
-            <IdeaCard
+            <IdeaNote
               name={idea.name}
               description={idea.description}
               position={i}

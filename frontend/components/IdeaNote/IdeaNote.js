@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import styles from '../../styles/Card.module.sass';
+import styles from '../../styles/Note.module.sass';
 
-const IdeaCard = ({ name, description, position }) => {
+const IdeaNote = ({ name, description, position }) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -13,11 +13,11 @@ const IdeaCard = ({ name, description, position }) => {
   }, []);
 
   return (
-    <div className={styles.card + (!isLoaded ? ` ${styles.loading}` : '')}>
+    <div className={styles.note + (!isLoaded ? ` ${styles.loading}` : '')}>
       <h2>{name}</h2>
       <p className={styles.description}>{description}</p>
     </div>
   );
 };
 
-export default IdeaCard;
+export default IdeaNote;
