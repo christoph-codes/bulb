@@ -1,82 +1,93 @@
-$primary-color:  #0020ea
+$primary-color: #0020ea
 $bg-color: #e2f2ff
 
 .container
+    padding: 0 2rem
     background-color: $primary-color
 
-.form
-    position: relative
+.main
     min-height: 100vh
-    padding: 3rem 0
+    padding: 4rem 0
+    flex: 1
     display: flex
     flex-direction: column
     justify-content: center
+    align-items: center
 
-.creds
-    border: solid 2px blue
-    height: 2rem
-    
-    &.invalidInput
-        border-color: red
+    p
+        color: white
+        text-decoration: underline
 
-.username, .password
-    z-index: 1
-    margin: 0 auto
-    padding: 0.5rem 0
-    text-align: center
+.form
+    position: relative
+    background-color: $bg-color
+    padding: 1rem
+    margin: 1rem
+    border-radius: 1rem
+    min-width: 20rem
+    clip-path: circle(100% at 50% 50%)
+    transition: clip-path 0.5s
 
-    label
-        width: 100%
+    &.submitting
+        clip-path: circle(0% at 50% 25%)
+
+    div
         font-size: 2rem
-        color: $primary-color
+        text-align: center
 
 .loginText
-    z-index: 2
     color: $bg-color
     text-align: center
     font-size: 2rem
 
-.lightController
-    content: ''
-    position: absolute
-    top: 0
-    left: 0
-    z-index: 0
-    background-color: $bg-color
-    height: 100%
-    width: 100%
-    transition: clip-path 0.5s
-    clip-path: circle(75% at 50% 50%)
-    
-    &.loadedLight
-        clip-path: circle(30% at 50% 50%)
+// .lightController
+//     content: ''
+//     position: absolute
+//     top: 0
+//     left: 0
+//     z-index: 0
+//     background-color: $bg-color
+//     height: 100%
+//     width: 100%
+    // transition: clip-path 0.5s
+    // clip-path: circle(75% at 50% 50%)
 
-    &.submitLight
-        clip-path: circle(0% at 50% 60%)
+    // &.loadedLight
+    //     clip-path: circle(30% at 50% 50%)
+
+    // &.submitLight
+    //     clip-path: circle(0% at 50% 60%)
 
 .loginButton
-    border: solid 2px blue
-    color: $primary-color
-    // background-color: #fff
-    margin: 0 auto
-    z-index: 1
+    background-color: $primary-color
+    border: solid 2px white
+    color: $bg-color
+    margin: 1rem auto
+    transition: background-color 0.5s, color 0.5s
 
-    &:hover 
-        + .loadedLight
-            clip-path: circle(100px at 50% 60%)
-
-.spinner
-    text-align: center
-    z-index: 1
+    &:hover:not(:disabled)
+        background-color: $bg-color
+        color: $primary-color
 
     svg
-        color: $bg-color
-        font-size: 2rem
-        animation: spin 2s linear infinite
+        animation: glow 0.5s alternate infinite
 
+.footer
+    display: flex
+    flex: 1
+    padding: 2rem 0
+    border-top: 1px solid $primary-color
+    justify-content: center
+    align-items: center
 
-@keyframes spin 
-  0%  
-      transform: rotate(0deg)
-  100%  
-      transform: rotate(360deg)
+    a
+        display: flex
+        justify-content: center
+        align-items: center
+        flex-grow: 1
+
+@keyframes glow
+    from
+        opacity: 100%
+    to
+        opacity: 25%

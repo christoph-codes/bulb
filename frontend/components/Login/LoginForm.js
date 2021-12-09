@@ -2,7 +2,7 @@ import styles from '../../styles/Login.module.sass';
 import { useState, useEffect } from 'react';
 import Input from '../Input/Input';
 import { useRouter } from 'next/router';
-import { MdLightbulbOutline } from 'react-icons/md';
+import { MdLightbulb } from 'react-icons/md';
 
 const LoginForm = () => {
   const [username, setUsername] = useState('');
@@ -30,6 +30,8 @@ const LoginForm = () => {
     setisFormValid(true);
     setIsSubmitting(true);
 
+    // setTimeout(() => setIsSubmitting(false), 2000);
+
     const request = { username: username, password: password };
     fetch('/api/login', { method: 'POST', body: request })
       .then(async (response) => {
@@ -52,10 +54,14 @@ const LoginForm = () => {
     e.preventDefault();
     submitCreds();
   };
+
   return (
-    <form className={styles.form}>
-      <span className={styles.loginText}>Log in</span>
-      <div className={styles.username}>
+    <>
+      <form
+        className={styles.form + (isSubmitting ? ` ${styles.submitting}` : '')}
+      >
+        <div>💡</div>
+        <br />
         <Input
           type='text'
           name='uname'
@@ -64,8 +70,8 @@ const LoginForm = () => {
           isFormValid={isFormValid}
           label='Username'
         />
-      </div>
-      <div className={styles.password}>
+        <br />
+        <br />
         <Input
           type='password'
           name='psw'
@@ -74,26 +80,20 @@ const LoginForm = () => {
           isFormValid={isFormValid}
           label='Password'
         />
-      </div>
+        <br />
+        <br />
+      </form>
+
       <button
         className={styles.loginButton}
         onClick={handleSubmit}
         type='submit'
+        disabled={isSubmitting}
       >
-        -&gt;
+        {isSubmitting ? <MdLightbulb /> : 'Log in'}
       </button>
-      <span
-        className={
-          styles.lightController +
-          ' ' +
-          (isSubmitting ? styles.submitLight : isLoaded && styles.loadedLight)
-        }
-      ></span>
-
-      <span className={styles.spinner}>
-        <MdLightbulbOutline />
-      </span>
-    </form>
+      <p>Create an account</p>
+    </>
   );
 };
 

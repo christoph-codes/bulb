@@ -1,16 +1,14 @@
-import styles from '../../styles/Login.module.sass';
+import styles from '../../styles/Input.module.sass';
 
 const Input = ({ type, name, required, setValue, isFormValid, label }) => {
   return (
     <>
       {label && (
-        <>
-          <label htmlFor={name}>
-            <b>{label}</b>
-          </label>
-          <br />
-        </>
+        <label className={styles.label} htmlFor={name}>
+          <b>{label}:</b>
+        </label>
       )}
+      &nbsp;
       <input
         className={styles.creds + ' ' + (!isFormValid && styles.invalidInput)}
         type={type}
