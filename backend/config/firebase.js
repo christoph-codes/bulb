@@ -23,6 +23,8 @@ const getAuth = fireAuth.getAuth;
 const connectAuthEmulator = fireAuth.connectAuthEmulator;
 
 const auth = getAuth();
-connectAuthEmulator(auth, 'http://localhost:9099');
+if (process.env.NODE_ENV === 'development') {
+	connectAuthEmulator(auth, 'http://localhost:9099');
+}
 
 module.exports = { app, auth, fireAuth };

@@ -10,7 +10,7 @@
     "frontend": "cd frontend && npm run dev",
     "kill": "kill-port 5000 #This is to kill port 5000 for the backend",
     "start": "node backend/index.js",
-    "dev": "heroku local web && npm run frontend"
+    "dev": "cd backend && heroku local web"
   },
   "repository": {
     "type": "git",
