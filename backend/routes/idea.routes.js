@@ -3,8 +3,15 @@ const db = require('../config/mongodb');
 const getAllIdeas = async (req, res) => {
 	try {
 		const ideaCollection = await db('ideas');
-		const result = await ideaCollection.find({}).toArray();
-		res.status(200).send(result);
+		const result = await ideaCollection
+			.find({ visibility: 'public' })
+			.limit(25)
+			.sort({ creationDate: -1 })
+			.toArray();
+		res.status(200).send({
+			message: 'Ideas retrieved successfully',
+			result,
+		});
 	} catch (err) {
 		console.log(err, 'There was a database error');
 		res.status(500).send({
@@ -22,7 +29,10 @@ const getUserIdeas = async (req, res) => {
 			const result = await ideaCollection
 				.find({ ownerId: userId })
 				.toArray();
-			res.status(200).send(result);
+			res.status(200).send({
+				message: 'User Ideas retrieved successfully',
+				result,
+			});
 		} catch (err) {
 			res.status(500).send({
 				error: {
@@ -138,7 +148,10 @@ const getIdea = async (req, res) => {
 					_id: ObjectId(idea),
 				});
 				console.log('result', result);
-				res.status(200).send(result);
+				res.status(200).send({
+					message: 'Idea retrieved successfully',
+					result,
+				});
 			} catch (err) {
 				res.status(500).send({
 					error: {
