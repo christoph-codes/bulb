@@ -9,7 +9,8 @@
     "emu": "cd backend && firebase emulators:start",
     "frontend": "cd frontend && npm run dev",
     "kill": "kill-port 5000 #This is to kill port 5000 for the backend",
-    "start": "npm run backend && npm run frontend"
+    "start": "node dist/index.js",
+    "dev": "npm run backend && npm run frontend"
   },
   "repository": {
     "type": "git",
