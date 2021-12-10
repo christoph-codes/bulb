@@ -5,12 +5,12 @@
   "main": "index.js",
   "scripts": {
     "install": "cd backend && npm install",
-    "backend": "cd backend && npm run start",
+    "backend": "cd backend && heroku local web",
     "emu": "cd backend && firebase emulators:start",
     "frontend": "cd frontend && npm run dev",
     "kill": "kill-port 5000 #This is to kill port 5000 for the backend",
-    "start": "node dist/index.js",
-    "dev": "npm run backend && npm run frontend"
+    "start": "node index.js",
+    "dev": "heroku local web && npm run frontend"
   },
   "repository": {
     "type": "git",
