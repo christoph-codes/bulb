@@ -4,7 +4,7 @@
   "description": "Bulb, the idea community for ideators",
   "main": "index.js",
   "scripts": {
-    "install": "cd backend && yarn install",
+    "install": "cd backend && npm install",
     "backend": "cd backend && yarn start",
     "emu": "cd backend && firebase emulators:start",
     "frontend": "cd frontend && yarn dev",
