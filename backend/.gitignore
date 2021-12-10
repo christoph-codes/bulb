@@ -3,3 +3,4 @@
 .env.local
 .env.production
 ui-debug.log
+firebase-debug.log
