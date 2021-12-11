@@ -1,6 +1,8 @@
 # bulb
 A community full of ideas.
 
+![Bulb Official Logo](https://user-images.githubusercontent.com/54452490/145690536-ff65e778-ec30-4b88-88aa-2df1538b0b77.png)
+
 ## Getting Started
 
 To get started run the following command to install dependencies for the frontend and backend of the project.
