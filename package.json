@@ -1,0 +1,37 @@
+{
+  "name": "bulb",
+  "version": "1.0.0",
+  "description": "Bulb, the idea community for ideators",
+  "main": "backend/index.js",
+  "scripts": {
+    "install": "cd backend && npm install",
+    "backend": "cd backend && heroku local web",
+    "emu": "cd backend && firebase emulators:start",
+    "frontend": "cd frontend && npm run dev",
+    "kill": "kill-port 5000 #This is to kill port 5000 for the backend",
+    "start": "node backend/index.js",
+    "dev": "cd backend && heroku local web"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/christoph-codes/bulb.git"
+  },
+  "keywords": [
+    "node",
+    "reactjs",
+    "nextjs",
+    "express",
+    "javascript",
+    "html",
+    "css"
+  ],
+  "author": "Christopher Jones",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/christoph-codes/bulb/issues"
+  },
+  "homepage": "https://github.com/christoph-codes/bulb#readme",
+  "dependencies": {
+    "mongodb": "^4.1.4"
+  }
+}

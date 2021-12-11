@@ -1,0 +1,38 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "The backend server for bulb.",
+  "main": "server.js",
+  "scripts": {
+    "test": "test",
+    "start": "nodemon index"
+  },
+  "engines": {
+    "node": "14.17.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/christoph-codes/bulb"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "react"
+  ],
+  "author": "Christopher Jones",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/christoph-codes/bulb/issues"
+  },
+  "homepage": "https://github.com/christoph-codes/bulb/backend#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "firebase": "^9.5.0",
+    "mongodb": "^4.1.4",
+    "path": "^0.12.7"
+  }
+}
