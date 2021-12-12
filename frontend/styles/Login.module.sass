@@ -18,51 +18,54 @@ $bg-color: #e2f2ff
         color: white
         text-decoration: underline
 
+.LoginForm
+    position: relative
+
 .form
     position: relative
-    background-color: $bg-color
-    padding: 1rem
-    margin: 1rem
-    border-radius: 1rem
-    min-width: 20rem
+    z-index: 0
+    min-width: 25rem
     clip-path: circle(100% at 50% 50%)
     transition: clip-path 0.5s
 
     &.submitting
         clip-path: circle(0% at 50% 25%)
 
-    div
+    .bulb
         font-size: 2rem
         text-align: center
+
+.loginSection, .accountSection
+    position: relative
+    padding: 1rem
+    margin: 0 1rem
+
+.loginSection
+    background-color: $bg-color
+    border-radius: 1rem
+    z-index: 3
+
+.accountSection
+    background-color: $bg-color
+    border-radius: 0 0 1rem 1rem
+    clip-path: circle(100% at 50% 50%)
+    transition: clip-path 0.5s
+    margin-top: -5%
+    padding-top: 2rem
+    z-index: 2
+
+    &.hidden
+        clip-path: circle(0% at 50% 85%)
+        pointer-events: none
 
 .loginText
     color: $bg-color
     text-align: center
-    font-size: 2rem
 
-// .lightController
-//     content: ''
-//     position: absolute
-//     top: 0
-//     left: 0
-//     z-index: 0
-//     background-color: $bg-color
-//     height: 100%
-//     width: 100%
-    // transition: clip-path 0.5s
-    // clip-path: circle(75% at 50% 50%)
-
-    // &.loadedLight
-    //     clip-path: circle(30% at 50% 50%)
-
-    // &.submitLight
-    //     clip-path: circle(0% at 50% 60%)
-
-.loginButton
+.loginButton, .accountButton
     background-color: $primary-color
     border: solid 2px white
-    color: $bg-color
-    margin: 1rem auto
+    color: white
     transition: background-color 0.5s, color 0.5s
 
     &:hover:not(:disabled)
@@ -71,6 +74,31 @@ $bg-color: #e2f2ff
 
     svg
         animation: glow 0.5s alternate infinite
+
+.loginButton
+    margin: 1rem auto
+
+.accountButton
+    width: 75%
+
+.loginActions
+    position: absolute
+    bottom: 0
+    width: 100%
+    height: 60%
+    z-index: 1
+    background-color: transparent
+    text-align: center
+
+.accountActions
+    text-align: center
+    padding-top: 2rem
+
+    p
+        color: $primary-color
+
+.formToggle
+    cursor: pointer
 
 .footer
     display: flex

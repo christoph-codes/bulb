@@ -2,7 +2,7 @@ import styles from '../../styles/Input.module.sass';
 
 const Input = ({ type, name, required, setValue, isFormValid, label }) => {
   return (
-    <>
+    <div className={styles.input}>
       {label && (
         <label className={styles.label} htmlFor={name}>
           <b>{label}:</b>
@@ -15,9 +15,9 @@ const Input = ({ type, name, required, setValue, isFormValid, label }) => {
         name={name}
         required={required}
         onChange={(e) => setValue(e.target.value)}
-        maxLength={25}
+        maxLength={40}
       />
-    </>
+    </div>
   );
 };
 

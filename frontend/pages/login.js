@@ -2,9 +2,13 @@ import fullColorLogo from '../public/logo-full-color.png';
 import Image from 'next/image';
 import Head from 'next/head';
 import LoginForm from '../components/Login/LoginForm';
+import Notice from '../components/Notice/Notice';
 import styles from '../styles/Login.module.sass';
+import { useState } from 'react';
 
 export default function Login() {
+  const [message, setMessage] = useState(null);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -14,7 +18,8 @@ export default function Login() {
       </Head>
 
       <main className={styles.main}>
-        <LoginForm />
+        {message && <Notice message={message} setMessage={setMessage} />}
+        <LoginForm setMessage={setMessage} />
       </main>
 
       <footer className={styles.footer}>
