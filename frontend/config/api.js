@@ -1,7 +1,10 @@
 const axios = require('axios');
 
 const BULB_API = axios.create({
-	baseURL: process.env.BULB_API_URL,
+	baseURL:
+		process.env.NODE_ENV === 'development'
+			? 'http://localhost:5000'
+			: process.env.NEXT_PUBLIC_BULB_API_URL,
 });
 
 export default BULB_API;
