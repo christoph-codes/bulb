@@ -1,0 +1,22 @@
+.Api {
+	&__cards {
+		display: flex;
+		flex-wrap: wrap;
+		flex-direction: column;
+		justify-content: space-between;
+		width: 60vw;
+		margin: auto;
+		text-align: center;
+		&__card {
+			margin: 10px;
+			padding: 3rem;
+			background-color: red;
+			&:nth-child(odd) {
+				margin-right: 0;
+			}
+			&:nth-child(even) {
+				margin-left: 0;
+			}
+		}
+	}
+}
