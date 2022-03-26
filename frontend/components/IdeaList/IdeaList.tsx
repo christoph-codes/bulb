@@ -3,6 +3,11 @@ import { useEffect, useState } from 'react';
 import router from 'next/router';
 import styles from '../../styles/List.module.sass';
 
+type Idea = {
+  name: string;
+  description: string;
+};
+
 const IdeaList = () => {
   const [ideaList, setIdeaList] = useState([]);
 
@@ -27,15 +32,10 @@ const IdeaList = () => {
 
   return (
     <ul className={styles.list}>
-      {ideaList.map((idea, i) => {
+      {ideaList.map((idea: Idea, i: number) => {
         return (
-          <li>
-            <IdeaNote
-              name={idea.name}
-              description={idea.description}
-              position={i}
-              key={i}
-            />
+          <li key={i}>
+            <IdeaNote name={idea.name} description={idea.description} />
           </li>
         );
       })}

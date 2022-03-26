@@ -1,6 +1,11 @@
 import styles from '../../styles/Notice.module.sass';
 
-const Notice = ({ message, setMessage }) => {
+interface INoticeProps {
+  message: string;
+  setMessage: Function;
+}
+
+const Notice = ({ message, setMessage }: INoticeProps) => {
   return (
     <div className={styles.Notice}>
       <h2>{message}</h2>

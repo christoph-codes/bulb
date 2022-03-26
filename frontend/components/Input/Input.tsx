@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '../../styles/Input.module.sass';
 
-interface InputProps {
+interface IInputProps {
   type: string;
   name: string;
   required: boolean;
@@ -17,7 +17,7 @@ const Input = ({
   setValue,
   isFormValid,
   label,
-}: InputProps) => {
+}: IInputProps) => {
   return (
     <div className={styles.input}>
       {label && (
