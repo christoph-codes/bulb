@@ -2,7 +2,12 @@ import styles from '../../styles/Note.module.sass';
 import { MdSettings } from 'react-icons/md';
 import { useState } from 'react';
 
-const IdeaNote = ({ name, description }) => {
+interface IIdeaNoteProps {
+  name: string;
+  description: string;
+}
+
+const IdeaNote = ({ name, description }: IIdeaNoteProps) => {
   const [isSettingsActive, setIsSettingsActive] = useState(false);
   const [color, setColor] = useState('yellow');
   const availableColors = [
@@ -14,7 +19,7 @@ const IdeaNote = ({ name, description }) => {
     'orange',
   ];
 
-  const changeColor = (selectedColor) => {
+  const changeColor = (selectedColor: string) => {
     setColor(selectedColor);
   };
 
@@ -27,9 +32,9 @@ const IdeaNote = ({ name, description }) => {
         <div className={styles.settings}>
           Colors:
           <ul>
-            {availableColors.map((color) => {
+            {availableColors.map((color, i) => {
               return (
-                <li>
+                <li key={i}>
                   <div
                     className={styles[color]}
                     onClick={() => changeColor(color)}

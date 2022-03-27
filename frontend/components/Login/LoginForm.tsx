@@ -5,7 +5,11 @@ import Input from '../Input/Input';
 import { useRouter } from 'next/router';
 import { MdLightbulb } from 'react-icons/md';
 
-const LoginForm = ({ setMessage }: { setMessage: Function }) => {
+interface ILoginProps {
+  setMessage: Function;
+}
+
+const LoginForm = ({ setMessage }: ILoginProps) => {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isCreatingAccount, setIsCreatingAccount] = useState(false);

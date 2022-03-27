@@ -1,5 +1,3 @@
-//TODO: List mode; note colors; pin-able notes
-
 import styles from '../styles/Dashboard.module.sass';
 import fullColorLogo from '../public/logo-full-color.png';
 import Head from 'next/head';
