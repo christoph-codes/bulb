@@ -5,10 +5,10 @@
   "main": "backend/index.js",
   "scripts": {
     "install": "cd backend && npm install",
-    "backend": "kill-port 5000 && cd backend && heroku local web",
+    "backend": "kill-port 5555 && cd backend && heroku local web",
     "emu": "cd backend && firebase emulators:start",
     "frontend": "cd frontend && npm run dev",
-    "kill": "kill-port 5000 #This is to kill port 5000 for the backend",
+    "kill": "kill-port 5555 #This is to kill port 5555 for the backend",
     "start": "node backend/index.js",
     "dev": "concurrently \"yarn emu\" \"cd backend && heroku local web\" \"cd frontend && npm run dev\""
   },
