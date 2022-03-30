@@ -26,6 +26,10 @@ const IdeaList = () => {
       });
   };
 
+  const getRandomNumBetween = (min: number, max: number) => {
+    return Math.random() * (max - min) + min;
+  };
+
   useEffect(() => {
     getIdeasFromApi();
   }, []);
@@ -33,8 +37,9 @@ const IdeaList = () => {
   return (
     <ul className={styles.list}>
       {ideaList.map((idea: Idea, i: number) => {
+        const rotation = getRandomNumBetween(-3, 3);
         return (
-          <li key={i}>
+          <li key={i} style={{ transform: `rotate(${rotation}deg)` }}>
             <IdeaNote name={idea.name} description={idea.description} />
           </li>
         );
