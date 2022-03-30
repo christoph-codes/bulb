@@ -7,6 +7,7 @@ const AuthContext = createContext({
 	login: () => {},
 	logout: () => {},
 	createAccount: () => {},
+	updateAccount: () => {},
 	deleteAccount: () => {},
 	updateUser: () => {},
 	updatePassword: () => {},
@@ -17,21 +18,26 @@ export const AuthProvider = ({ children }) => {
 		isAuthenticated: false,
 		data: {},
 	});
+	const [error, setError] = useState(null);
 	const login = (email, password) => {
 		console.log(email, password);
 		if (email && password) {
 			BULB_API.post('/auth/login', { email, password })
 				.then((res) => {
-					console.log(res.data);
-					// if (res.data) {
-					// 	setUser({
-					// 		isAuthenticated: true,
-					// 		data: res.data.data,
-					// 	});
-					// }
+					console.log('login result', res);
+					if (res.data) {
+						setUser({
+							isAuthenticated: true,
+							data: res.data.user,
+						});
+					}
+					if (res.error) {
+						console.log('API Error:', res.error);
+					}
 				})
 				.catch((err) => {
-					console.log(err);
+					console.log('error:', err);
+					setError(err);
 				});
 		}
 	};
@@ -48,25 +54,48 @@ export const AuthProvider = ({ children }) => {
 						setUser(res.data.user);
 						console.log(res.data);
 					} else {
-						console.log(
+						setError(
 							'something went wrong creating this user',
 							res.data,
 						);
 					}
 				})
 				.catch((err) => {
-					console.log(err);
+					setError(err);
 				});
 		} else {
-			console.log('missing info');
+			setError('missing info');
 		}
+	};
+	const updateAccount = () => {
+		console.log('Update Account');
+	};
+	const logout = () => {
+		console.log('logging out');
+		BULB_API.get('/auth/logout')
+			.then((res) => {
+				console.log('logout result:', res.data);
+				if (res.data) {
+					setUser({
+						isAuthenticated: false,
+						data: {},
+					});
+				}
+			})
+			.catch((err) => {
+				setError(err);
+			});
 	};
 	return (
 		<AuthContext.Provider
 			value={{
-				user,
+				isUserAuthenticated: user.isAuthenticated,
+				user: user.data,
 				login,
+				logout,
 				createAccount,
+				updateAccount,
+				error,
 			}}
 		>
 			{children}
