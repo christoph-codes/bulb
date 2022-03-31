@@ -17,6 +17,13 @@ a {
 }
 
 h1 {
-  background-color: #0020ea;
-  color: #fff;
+  color: #0020ea;
+}
+
+button {
+  cursor: pointer;
+  padding: 0.5rem 2rem;
+  font-size: 1.5rem;
+  border-radius: 2rem;
+  width: 10rem;
 }
