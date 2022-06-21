@@ -1,14 +1,18 @@
 import IdeaNote from '../IdeaNote/IdeaNote';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import router from 'next/router';
 import styles from '../../styles/List.module.sass';
+
+interface IIdeaList {
+  isList: boolean;
+}
 
 type Idea = {
   name: string;
   description: string;
 };
 
-const IdeaList = () => {
+const IdeaList = ({ isList }: IIdeaList) => {
   const [ideaList, setIdeaList] = useState([]);
 
   const getIdeasFromApi = () => {
@@ -26,25 +30,34 @@ const IdeaList = () => {
       });
   };
 
-  const getRandomNumBetween = (min: number, max: number) => {
-    return Math.random() * (max - min) + min;
-  };
-
   useEffect(() => {
     getIdeasFromApi();
   }, []);
 
-  return (
-    <ul className={styles.list}>
-      {ideaList.map((idea: Idea, i: number) => {
-        const rotation = getRandomNumBetween(-3, 3);
-        return (
-          <li key={i} style={{ transform: `rotate(${rotation}deg)` }}>
-            <IdeaNote name={idea.name} description={idea.description} />
-          </li>
-        );
-      })}
-    </ul>
+  const ideaMap = ideaList.map((idea: Idea, i: number) => {
+    return (
+      <IdeaNote
+        name={idea.name}
+        description={idea.description}
+        isList={isList}
+        key={i}
+      />
+    );
+  });
+
+  return isList ? (
+    <table className={styles.list}>
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Name</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>{ideaMap}</tbody>
+    </table>
+  ) : (
+    <ul className={styles.board}>{ideaMap}</ul>
   );
 };
 

@@ -21,7 +21,7 @@ $white: #ffffff
   transition: box-shadow 0.2s, transform 0.25s, background-color 0.5s//, border-radius 0.25s,
 
   &:hover
-    transform: scale(1.03)
+    transform: rotate(0) !important
     box-shadow: 1px 10px 10px rgba(0, 0, 0, 0.15)
 
   &::before
@@ -35,6 +35,10 @@ $white: #ffffff
 
   .description
     padding: 1rem
+
+.listItem
+  position: relative
+  padding: 1rem
 
 .cogContainer
   padding: 0.5rem
@@ -71,19 +75,19 @@ $white: #ffffff
     width: 1rem
 
 .yellow
-  background-color: $yellow
+  background-color: $yellow !important
 
 .purple
-  background-color: $purple
+  background-color: $purple !important
 
 .pink
-  background-color: $pink
+  background-color: $pink !important
 
 .orange
-  background-color: $orange
+  background-color: $orange !important
 
 .green
-  background-color: $green
+  background-color: $green !important
 
 .blue
-  background-color: $blue
+  background-color: $blue !important

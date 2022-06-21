@@ -1,9 +1,20 @@
 $primary-color: #0020ea
-$bg-color: #e2f2ff
+$secondary-color: #e2f2ff
 
 .container
     padding: 0 2rem
-    background-color: $bg-color
+    background-color: $secondary-color
+
+.toggle
+    position: absolute
+    top: 1rem
+    right: 1rem
+    background-color: $primary-color
+    color: $secondary-color
+    outline: $secondary-color
+
+    .toggleHighlight
+        background-color: $primary-color
 
 .main
     min-height: 100vh

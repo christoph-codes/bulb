@@ -1,16 +1,50 @@
 $primary-color: #0020ea
 $bg-color: #e2f2ff
 
-.list
-  display: flex
-  list-style-type: none
+.board, .list
   align-items: center
-  flex-wrap: wrap
+  list-style-type: none
   padding: 0
+
+  li
+    transition: transform 0.3s
+
+.board
+  display: flex
+  flex-wrap: wrap
 
   li
     margin: 0 auto
     transition: transform 0.3s
 
     &:hover
-      transform: rotate(0) !important
+      transform: scale(1.05)
+      z-index: 2
+
+.list
+  display: block
+
+  th, td
+    padding: 1rem
+
+  th
+    background-color: #5aa4ef
+    color: white
+
+  tr
+    margin: 1rem
+    transition: transform 0.3s
+
+    &:hover
+      transform: scale(1.02)
+
+  tbody
+    td
+      background-color: #b4d9ff
+
+  // li
+  //   margin: 0
+
+  //   &:hover
+  //     transform: scale(1.05)
+  //     z-index: 2
