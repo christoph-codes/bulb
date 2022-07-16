@@ -1,0 +1,121 @@
+$primary-color: #0020ea
+$bg-color: #e2f2ff
+
+.container
+    padding: 0 2rem
+    background-color: $primary-color
+
+.main
+    min-height: 100vh
+    padding: 4rem 0
+    flex: 1
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+
+    p
+        color: white
+        text-decoration: underline
+
+.LoginForm
+    position: relative
+
+.form
+    position: relative
+    z-index: 0
+    min-width: 25rem
+    clip-path: circle(100% at 50% 50%)
+    transition: clip-path 0.5s
+
+    &.submitting
+        clip-path: circle(0% at 50% 25%)
+
+    .bulb
+        font-size: 2rem
+        text-align: center
+
+.loginSection, .accountSection
+    position: relative
+    padding: 1rem
+    margin: 0 1rem
+
+.loginSection
+    background-color: $bg-color
+    border-radius: 1rem
+    z-index: 3
+
+.accountSection
+    background-color: $bg-color
+    border-radius: 0 0 1rem 1rem
+    clip-path: circle(100% at 50% 50%)
+    transition: clip-path 0.5s
+    margin-top: -5%
+    padding-top: 2rem
+    z-index: 2
+
+    &.hidden
+        clip-path: circle(0% at 50% 85%)
+        pointer-events: none
+
+.loginText
+    color: $bg-color
+    text-align: center
+
+.loginButton, .accountButton
+    background-color: $primary-color
+    border: solid 2px white
+    color: white
+    transition: background-color 0.5s, color 0.5s
+
+    &:hover:not(:disabled)
+        background-color: $bg-color
+        color: $primary-color
+
+    svg
+        animation: glow 0.5s alternate infinite
+
+.loginButton
+    margin: 1rem auto
+
+.accountButton
+    width: 75%
+
+.loginActions
+    position: absolute
+    bottom: 0
+    width: 100%
+    height: 60%
+    z-index: 1
+    background-color: transparent
+    text-align: center
+
+.accountActions
+    text-align: center
+    padding-top: 2rem
+
+    p
+        color: $primary-color
+
+.formToggle
+    cursor: pointer
+
+.footer
+    display: flex
+    flex: 1
+    padding: 2rem 0
+    border-top: 1px solid $primary-color
+    justify-content: center
+    align-items: center
+
+    a
+        display: flex
+        justify-content: center
+        align-items: center
+        flex-grow: 1
+
+@keyframes glow
+    from
+        opacity: 100%
+    to
+        opacity: 25%
