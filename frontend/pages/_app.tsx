@@ -1,4 +1,5 @@
-import '../styles/globals.css';
+import AuthProvider from "../providers/AuthProvider";
+import "../styles/globals.css";
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
 
@@ -8,7 +9,11 @@ interface IMyAppProps {
 }
 
 function MyApp({ Component, pageProps }: IMyAppProps) {
-  return <Component {...pageProps} />;
+  return (
+    <AuthProvider>
+      <Component {...pageProps} />
+    </AuthProvider>
+  );
 }
 
 export default MyApp;
