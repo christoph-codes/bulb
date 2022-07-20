@@ -1,5 +1,5 @@
-import React from 'react';
-import styles from '../../styles/Input.module.sass';
+import React from "react";
+import styles from "../../styles/Input.module.sass";
 
 interface IInputProps {
   type: string;
@@ -27,11 +27,11 @@ const Input = ({
       )}
       &nbsp;
       <input
-        className={styles.creds + ' ' + (!isFormValid && styles.invalidInput)}
+        className={styles.creds + " " + (!isFormValid && styles.invalidInput)}
         type={type}
         name={name}
         required={required}
-        onChange={(e) => setValue(e.target.value)}
+        onInput={(e) => setValue(e)}
         maxLength={40}
       />
     </div>
