@@ -5,9 +5,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+	"emu": "firebase emulators:start"
   },
   "dependencies": {
+    "firebase": "^9.9.0",
+    "firebase-admin": "^11.0.0",
     "next": "12.2.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
