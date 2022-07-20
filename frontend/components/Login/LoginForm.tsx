@@ -1,9 +1,10 @@
-import React from 'react';
-import styles from '../../styles/Login.module.sass';
-import { useState } from 'react';
-import Input from '../Input/Input';
-import { useRouter } from 'next/router';
-import { MdLightbulb } from 'react-icons/md';
+import React, { ChangeEvent, FormEvent } from "react";
+import styles from "../../styles/Login.module.sass";
+import { useState } from "react";
+import Input from "../Input/Input";
+import { useRouter } from "next/router";
+import { MdLightbulb } from "react-icons/md";
+import axios from "axios";
 
 interface ILoginProps {
   setMessage: Function;
@@ -15,27 +16,29 @@ const LoginForm = ({ setMessage }: ILoginProps) => {
   const [isCreatingAccount, setIsCreatingAccount] = useState(false);
   const [formError, setFormError] = useState(false);
   const [values, setValues] = useState({
-    username: '',
-    password: '',
-    confirmpw: '',
-    email: '',
+    username: "",
+    password: "",
+    confirmpw: "",
+    email: "",
   });
 
   const redirectToDashboard = (userData: object) => {
-    sessionStorage.setItem('user', JSON.stringify(userData));
-    router.push('/dashboard');
+    sessionStorage.setItem("user", JSON.stringify(userData));
+    router.push("/dashboard");
   };
 
   const submitLoginCreds = () => {
     setIsSubmitting(true);
     const request = {
-      username: values.username,
+      email: values.email,
       password: values.password,
     };
-    fetch('/api/login', { method: 'POST', body: JSON.stringify(request) })
+    axios
+      .post("/api/login", { body: JSON.stringify(request) })
       .then(async (response) => {
+        console.log("response:", response);
         if (response.status === 200) {
-          const data = await response.json();
+          const data = await response.data;
           redirectToDashboard(data);
         } else if (response.status === 401) {
           setFormError(true);
@@ -53,20 +56,20 @@ const LoginForm = ({ setMessage }: ILoginProps) => {
   const submitAccountCreation = () => {
     setIsSubmitting(true);
     const request = {
-      fname: values.username,
-      lname: values.username,
+      username: values.username,
       email: values.email,
       password: values.password,
     };
 
-    fetch('/api/createAccount', {
-      method: 'POST',
-      body: JSON.stringify(request),
-    })
+    axios
+      .post("/api/auth/create", {
+        body: request,
+      })
       .then(async (response) => {
+        console.log("create response", response);
         if (response.status === 200) {
           setMessage(
-            'Your account has been created! Please check your email for verification.'
+            "Your account has been created! Please check your email for verification."
           );
           setIsCreatingAccount(false);
         }
@@ -97,52 +100,86 @@ const LoginForm = ({ setMessage }: ILoginProps) => {
   const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    const isFormValid = validateForm();
-    if (isFormValid) {
-      isCreatingAccount ? submitAccountCreation() : submitLoginCreds();
-    }
+    setIsSubmitting(true);
+    const request = {
+      username: values.username,
+      email: values.email,
+      password: values.password,
+    };
+
+    console.log("submission commenced");
+    submitLoginCreds();
+
+    axios
+      .post("/api/auth/create", {
+        user: request,
+      })
+      .then(async (response) => {
+        console.log("create response", response);
+        if (response.status === 200) {
+          setMessage(
+            "Your account has been created! Please check your email for verification."
+          );
+          setIsCreatingAccount(false);
+        }
+      })
+      .catch((err) => {
+        console.error(err.data);
+        setFormError(err.data);
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
+
+    // const isFormValid = validateForm();
+    // if (isFormValid) {
+    //   isCreatingAccount ? submitAccountCreation() : submitLoginCreds();
+    // }
   };
 
-  const handleChange = (fieldName: string) => (value: string) => {
-    setValues({ ...values, [fieldName]: value });
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log("hey");
+    const { name, value } = e.target;
+    console.log("name", name);
+    setValues({ ...values, [name]: value });
   };
 
   return (
     <div className={styles.LoginForm}>
       <form
         className={
-          styles.form + (isCreatingAccount ? ` ${styles.revealed}` : '')
+          styles.form + (isCreatingAccount ? ` ${styles.revealed}` : "")
         }
       >
         <section className={styles.loginSection}>
           <div className={styles.bulb}>💡</div>
           <br />
           <Input
-            type='text'
-            name='uname'
+            type="email"
+            name="email"
             required={true}
-            setValue={handleChange('username')}
+            setValue={handleChange}
             isFormValid={!formError}
-            label='Username'
+            label="Email"
           />
           <br />
           <Input
-            type='password'
-            name='psw'
+            type="password"
+            name="password"
             required={true}
-            setValue={handleChange('password')}
+            setValue={handleChange}
             isFormValid={!formError}
-            label='Password'
+            label="Password"
           />
         </section>
         <div className={styles.loginActions}>
           <button
             className={styles.loginButton}
             onClick={handleSubmit}
-            type='submit'
+            type="submit"
             disabled={isSubmitting}
           >
-            {isSubmitting ? <MdLightbulb /> : 'Log In'}
+            {isSubmitting ? <MdLightbulb /> : "Log In"}
           </button>
           <p
             onClick={() => {
@@ -155,35 +192,35 @@ const LoginForm = ({ setMessage }: ILoginProps) => {
         <section
           className={
             styles.accountSection +
-            ' ' +
-            (!isCreatingAccount ? styles.hidden : '')
+            " " +
+            (!isCreatingAccount ? styles.hidden : "")
           }
         >
           <Input
-            type='password'
-            name='confirm-psw'
+            type="password"
+            name="confirm-psw"
             required={true}
-            setValue={handleChange('confirmpw')}
+            setValue={handleChange}
             isFormValid={!formError}
-            label='Confirm PW'
+            label="Confirm PW"
           />
           <br />
           <Input
-            type='text'
-            name='email'
+            type="text"
+            name="username"
             required={true}
-            setValue={handleChange('email')}
+            setValue={handleChange}
             isFormValid={!formError}
-            label='Email'
+            label="username"
           />
           <div className={styles.accountActions}>
             <button
               className={styles.accountButton}
               onClick={handleSubmit}
-              type='submit'
+              type="submit"
               disabled={isSubmitting}
             >
-              {isSubmitting ? <MdLightbulb /> : 'Create Account'}
+              {isSubmitting ? <MdLightbulb /> : "Create Account"}
             </button>
             <p
               onClick={() => {
