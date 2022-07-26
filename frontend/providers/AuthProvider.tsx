@@ -1,52 +1,48 @@
 import firebase from "firebase/compat/app";
-import auth from "../config/firebase/firebaseClient";
-import nookies from "nookies";
-import { createContext, useState, useEffect, useContext } from "react";
+import {
+  createContext,
+  useState,
+  useEffect,
+  useContext,
+  Dispatch,
+  SetStateAction,
+} from "react";
+import { getWithExpiry, setWithExpiry } from "../utils/helper";
 
 export interface IAuthContext {
   user: firebase.User | null;
-  createUser: () => void;
+  setUser: Dispatch<SetStateAction<firebase.User | null>>;
 }
 
 const AuthContext = createContext<IAuthContext>({
   user: null,
-  createUser: () => {},
+  setUser: () => {},
 });
 
 const AuthProvider = ({ children }: any) => {
-  const [user, setUser] = useState<firebase.User | null>(null);
-
-  // handle auth logic here...
-  const createUser = () => {
-    console.log("creating a user");
-  };
-
-  useEffect(() => {
-    return firebase.auth().onIdTokenChanged(async (user) => {
-      if (!user) {
-        setUser(null);
-        nookies.set(undefined, "token", "", { path: "/" });
-      } else {
-        const token = await user.getIdToken();
-        setUser(user);
-        nookies.set(undefined, "token", token, { path: "/" });
+  const [user, setUser] = useState<firebase.User | null>(() => {
+    const localUser = getWithExpiry("bulb_user");
+    return (
+      localUser || {
+        loggedInStatus: false,
+        _id: "",
+        username: "",
+        fname: "",
+        lname: "",
+        email: "",
+        githubUrl: "",
+        jobTitle: "",
+        bio: "",
+        lastLoggedInDate: "",
       }
-    });
-  }, []);
-
-  // force refresh the token every 10 minutes
+    );
+  });
   useEffect(() => {
-    const handle = setInterval(async () => {
-      const user = auth.auth().currentUser;
-      if (user) await user.getIdToken(true);
-    }, 10 * 60 * 1000);
-
-    // clean up setInterval
-    return () => clearInterval(handle);
-  }, []);
+    setWithExpiry("bulb_user", user, 3600000);
+  }, [user]);
 
   return (
-    <AuthContext.Provider value={{ user, createUser }}>
+    <AuthContext.Provider value={{ user, setUser }}>
       {children}
     </AuthContext.Provider>
   );
