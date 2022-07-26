@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../../styles/Input.module.sass";
+import styles from "./Input.module.scss";
 
 interface IInputProps {
   type: string;
@@ -9,9 +9,19 @@ interface IInputProps {
   isFormValid: boolean;
   label: string;
 }
-
+/**
+ * Displays a bulb styled input component
+ * @component Input
+ * @param {string} type  The desired type of input
+ * @param {string} name The unique name to be provided to the input
+ * @param {boolean} required Boolean value to determine if the input is required for submission
+ * @param {Function} setValue Function to set the value of the input
+ * @param {boolean} isFormValid Boolean that displays a error state to style the component
+ * @param {string} label Label for the component
+ * @returns The value that is entered into the input
+ */
 const Input = ({
-  type,
+  type = "text",
   name,
   required,
   setValue,
@@ -19,22 +29,20 @@ const Input = ({
   label,
 }: IInputProps) => {
   return (
-    <div className={styles.input}>
-      {label && (
-        <label className={styles.label} htmlFor={name}>
-          <b>{label}:</b>
-        </label>
-      )}
-      &nbsp;
+    <label className={styles.Input} htmlFor={name}>
+      <span>
+        <strong>{label}:</strong>
+      </span>
       <input
-        className={styles.creds + " " + (!isFormValid && styles.invalidInput)}
+        className={
+          styles.creds + " " + (!isFormValid && styles["Input--invalid"])
+        }
         type={type}
         name={name}
         required={required}
-        onInput={(e) => setValue(e)}
-        maxLength={40}
+        onChange={(e) => setValue(e)}
       />
-    </div>
+    </label>
   );
 };
 
