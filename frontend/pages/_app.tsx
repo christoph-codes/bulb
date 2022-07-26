@@ -1,5 +1,6 @@
 import AuthProvider from "../providers/AuthProvider";
 import EmulatorProvider from "../providers/EmulatorProvider";
+import "../styles/globals.scss";
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
 
