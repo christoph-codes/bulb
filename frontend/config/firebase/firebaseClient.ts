@@ -1,6 +1,9 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 
+/**
+ * Initialize the firebase app using firebase api keys.
+ */
 firebase.initializeApp({
 	apiKey: process.env.NEXT_PUBLIC_FIREBASE_APIKEY,
 	authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTHDOMAIN,
@@ -14,7 +17,5 @@ firebase.initializeApp({
  * Authentication emulator is set by the firebase env variable.
  */
 const auth = firebase.auth();
-
-
 
 export default auth;
