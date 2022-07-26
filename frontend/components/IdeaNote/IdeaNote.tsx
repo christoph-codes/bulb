@@ -1,6 +1,6 @@
-import styles from '../../styles/Note.module.sass';
-import { MdSettings } from 'react-icons/md';
-import { useState } from 'react';
+import { MdSettings } from "react-icons/md";
+import { useState } from "react";
+import styles from "./IdeaNote.module.scss";
 
 interface IIdeaNoteProps {
   name: string;
@@ -9,14 +9,14 @@ interface IIdeaNoteProps {
 
 const IdeaNote = ({ name, description }: IIdeaNoteProps) => {
   const [isSettingsActive, setIsSettingsActive] = useState(false);
-  const [color, setColor] = useState('yellow');
+  const [color, setColor] = useState("yellow");
   const availableColors = [
-    'yellow',
-    'blue',
-    'green',
-    'purple',
-    'pink',
-    'orange',
+    "yellow",
+    "blue",
+    "green",
+    "purple",
+    "pink",
+    "orange",
   ];
 
   const changeColor = (selectedColor: string) => {
@@ -24,8 +24,8 @@ const IdeaNote = ({ name, description }: IIdeaNoteProps) => {
   };
 
   return (
-    <div
-      className={styles.note + ' ' + styles[color]}
+    <article
+      className={styles.IdeaNote + " " + styles[color]}
       onMouseLeave={() => setIsSettingsActive(false)}
     >
       {isSettingsActive && (
@@ -48,7 +48,7 @@ const IdeaNote = ({ name, description }: IIdeaNoteProps) => {
       <div className={styles.cogContainer}>
         <span
           className={
-            styles.cog + (isSettingsActive ? ' ' + styles.cogActive : '')
+            styles.cog + (isSettingsActive ? " " + styles.cogActive : "")
           }
           onMouseOver={() => setIsSettingsActive(true)}
         >
@@ -59,7 +59,7 @@ const IdeaNote = ({ name, description }: IIdeaNoteProps) => {
         <h2>{name}</h2>
         <p className={styles.description}>{description}</p>
       </div>
-    </div>
+    </article>
   );
 };
 
