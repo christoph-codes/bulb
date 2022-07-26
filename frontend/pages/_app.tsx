@@ -1,5 +1,5 @@
 import AuthProvider from "../providers/AuthProvider";
-import "../styles/globals.css";
+import EmulatorProvider from "../providers/EmulatorProvider";
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
 
@@ -10,9 +10,11 @@ interface IMyAppProps {
 
 function MyApp({ Component, pageProps }: IMyAppProps) {
   return (
-    <AuthProvider>
-      <Component {...pageProps} />
-    </AuthProvider>
+    <EmulatorProvider>
+      <AuthProvider>
+        <Component {...pageProps} />
+      </AuthProvider>
+    </EmulatorProvider>
   );
 }
 
