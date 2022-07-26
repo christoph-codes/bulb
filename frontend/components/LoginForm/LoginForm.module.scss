@@ -1,0 +1,76 @@
+@import '../../styles/colors.scss';
+
+.LoginForm {
+	position: relative;
+	z-index: 0;
+	width: 25rem;
+	clip-path: circle(100% at 50% 50%);
+	transition: clip-path 0.5s;
+	&__submitting {
+		clip-path: circle(0% at 50% 25%);
+	}
+	&__formError {
+		color: $tertiary;
+		text-align: center;
+	}
+	&__loginSection, &__accountSection {
+		background-color: $primary-white;
+		padding: 2rem;
+		margin: 0 1rem;
+		box-shadow: 0 0 1rem -0.5rem 50%;
+	}
+	&__loginSection {
+	    border-radius: 0.5rem;
+	    z-index: 3;
+	}
+	&__accountSection {
+		border-radius: 0 0 1rem 1rem;
+	    clip-path: circle(100% at 50% 50%);
+	    transition: clip-path 0.5s;
+	    margin-top: -5%;
+	    padding-top: 2rem;
+	    z-index: 2;
+		&--hidden {
+			clip-path: circle(0% at 50% 85%);
+			pointer-events: none;
+		}
+	}
+	&__loginText {
+		color: $primary-white;
+		text-align: center;
+	}
+	&__loginButton {
+		margin-left: auto;
+		margin-right: auto;
+		display: block;
+	}
+	&__loginActions {
+		bottom: 0;
+		width: 100%;
+		height: 60%;
+		z-index: 1;
+		background-color: transparent;
+		text-align: center;
+	}
+	&__accountActions {
+		text-align: center;
+		padding-top: 2rem;
+		p {
+			color: $primary;
+		}
+	}
+	&__formToggle {
+		text-align: center;
+		margin-top: 2rem;
+	}
+}
+
+@keyframes glow {
+	from {
+		opacity: 100%
+	}
+	to {
+		opacity: 25%;
+	}
+}
+    

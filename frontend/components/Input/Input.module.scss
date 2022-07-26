@@ -1,0 +1,22 @@
+@import '../../styles/colors.scss';
+.Input {
+	span {
+		font-size: 1rem;
+		color: $dark-gray;
+		display: block;
+		margin-bottom: 0.5rem;
+	}
+	input {
+		width: 100%;
+		padding: 0.25rem 0.5rem;
+		height: 3rem;
+		border-radius: 0.25rem;
+		border: solid 2px $primary-light;
+		background-color: $white;
+		margin-bottom: 1rem;
+		color: $primary;
+		&.Input--invalid {
+			border-color: $tertiary;
+		}
+	}
+}
