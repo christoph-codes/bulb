@@ -21,11 +21,6 @@ const LoginForm = () => {
     email: "",
   });
 
-  const redirectToDashboard = (userData: object) => {
-    sessionStorage.setItem("user", JSON.stringify(userData));
-    router.push("/dashboard");
-  };
-
   const submitLoginCreds = () => {
     console.log("logging in");
     setIsSubmitting(true);
@@ -39,7 +34,8 @@ const LoginForm = () => {
         console.log("response:", response);
         if (response.status === 200) {
           const data = await response.data;
-          redirectToDashboard(data);
+          setUser(data.user);
+          router.push("/dashboard");
         } else if (response.status === 401) {
           setFormError("You are not authorized for this");
         }
@@ -54,7 +50,7 @@ const LoginForm = () => {
       });
   };
 
-  const submitAccountCreation = () => {
+  const submitAccountCreation = async () => {
     setIsSubmitting(true);
     const request = {
       username: values.username,
@@ -62,7 +58,7 @@ const LoginForm = () => {
       password: values.password,
     };
 
-    axios
+    await axios
       .post("/api/auth/create", {
         user: request,
       })
@@ -73,7 +69,21 @@ const LoginForm = () => {
             "Your account has been created! Please check your email for verification.",
             response
           );
-          setIsCreatingAccount(false);
+          // Fetch the create user route
+          await axios
+            .post("/api/users/create", { user: response.data.user })
+            .then((newResponse) => {
+              console.log("new user response:", newResponse);
+              if (newResponse.status === 201) {
+                setUser(newResponse.data.user);
+                router.push("/dashboard");
+              }
+              setIsCreatingAccount(false);
+            })
+            .catch((err) => {
+              const { error } = err.response.data;
+              setFormError(error.message);
+            });
         }
       })
       .catch((err) => {
@@ -81,7 +91,7 @@ const LoginForm = () => {
         if (error) {
           setFormError(error.message);
         }
-        console.error(err.response.data.error.message);
+        console.error(err.response);
       })
       .finally(() => {
         setIsSubmitting(false);
