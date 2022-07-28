@@ -1,8 +1,10 @@
+import axios from "axios";
 import { NextApiRequest, NextApiResponse } from "next";
+import { NextResponse } from "next/server";
 import auth from "../../../config/firebase/firebaseClient";
 import db from "../../../config/mongodb";
 
-export default async (req: NextApiRequest, res: NextApiResponse, next: any) => {
+export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { email, password, username } = req.body.user;
   if (email && password && username) {
     // Create new account
@@ -22,10 +24,10 @@ export default async (req: NextApiRequest, res: NextApiResponse, next: any) => {
             bio: "",
             lastLoggedInDate: new Date(),
           };
-          res.status(200);
-          console.log("newUser", newUser);
-          req.body.user = newUser;
-          res.redirect("/api/users/create");
+          res.status(200).send({
+            message: "Firebase User created successfully",
+            user: newUser,
+          });
         });
     } catch (err: any) {
       if (err) {
