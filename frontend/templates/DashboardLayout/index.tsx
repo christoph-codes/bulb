@@ -56,7 +56,6 @@ const DashboardLayout = ({
             >
               <a>
                 <MdLightbulb
-                  size="36"
                   className={`${styles.DashboardLayout__icon} ${
                     isSideNavOpen ? "" : styles["DashboardLayout__icon--close"]
                   }`}
@@ -72,7 +71,6 @@ const DashboardLayout = ({
             >
               <a>
                 <BsPersonBadgeFill
-                  size="36"
                   className={`${styles.DashboardLayout__icon} ${
                     isSideNavOpen ? "" : styles["DashboardLayout__icon--close"]
                   }`}
@@ -88,7 +86,6 @@ const DashboardLayout = ({
             >
               <a>
                 <FaCog
-                  size="36"
                   className={`${styles.DashboardLayout__icon} ${
                     isSideNavOpen ? "" : styles["DashboardLayout__icon--close"]
                   }`}

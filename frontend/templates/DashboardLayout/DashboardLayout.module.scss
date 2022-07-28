@@ -2,13 +2,12 @@
 .DashboardLayout {
 	display: flex;
 	&__aside {
-		// transform: translateX(0rem);
 		width: 20rem;
 		background-color: $primary-dark;
 		transition: width 0.15s ease-in-out;
+		height: 100vh;
 		&--close {
 			width: 4rem;
-			// transform: translateX(-8rem);
 		}
 	}
 	&__logoTab {
@@ -35,18 +34,23 @@
 		padding: 0;
 	}
 	&__links {
-		padding: 1rem;
 		list-style-type: none;
+		padding: 0;
+		margin: 0;
 		li {
-			font-size: 1rem;
-			margin-bottom: 2rem;
-			cursor: pointer;
-			color: $primary;
 			a {
+				padding: 1.5rem 1rem;
 				display: flex;
 				align-items: center;
+				justify-content: space-between;
+				flex-direction: row-reverse;
 				transition: ease-in-out .15s color;
+				transition: ease-in-out .15s background-color;
+				font-size: 1rem;
+				cursor: pointer;
+				color: $primary;
 				&:hover {
+					background-color: $primary-dark-fade;
 					color: $white;
 					.DashboardLayout__icon {
 						color: $white;
@@ -54,6 +58,7 @@
 				}
 			}
 			.DashboardLayout__link--active {
+				background-color: $primary-dark-fade;
 				color: $secondary;
 				.DashboardLayout__icon {
 					color: $secondary;
@@ -69,6 +74,7 @@
 	}
 	
 	&__icon {
+		font-size: 1.5rem;
 		margin-right: 1rem;
 		transition: margin 0.15s ease-in-out;
 		color: $primary;
@@ -98,9 +104,9 @@
 		height: 3rem;
 		p {
 			padding: 1rem;
-			border-top: solid 1px $primary;
+			border-top: solid 1px $primary-dark-fade;
 			font-size: 0.75rem;
-			color: $primary-white;
+			color: $primary;
 			text-align: center;
 			margin: 0;
 		}
