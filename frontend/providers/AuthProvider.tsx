@@ -1,4 +1,4 @@
-import firebase from "firebase/compat/app";
+import { useRouter } from "next/router";
 import {
   createContext,
   useState,
@@ -10,21 +10,42 @@ import {
 import { getWithExpiry, setWithExpiry } from "../utils/helper";
 
 export interface IAuthContext {
-  user: firebase.User | null;
-  setUser: Dispatch<SetStateAction<firebase.User | null>>;
+  user: IUser | null;
+  setUser: Dispatch<SetStateAction<IUser | null>>;
+}
+export interface IUser {
+  _id?: string;
+  username?: string;
+  fname?: string;
+  lname?: string;
+  email?: string;
+  githubUrl?: string;
+  jobTitle?: string;
+  bio?: string;
+  lastLoggedInDate?: Date | null;
 }
 
 const AuthContext = createContext<IAuthContext>({
-  user: null,
+  user: {
+    _id: "",
+    username: "",
+    fname: "",
+    lname: "",
+    email: "",
+    githubUrl: "",
+    jobTitle: "",
+    bio: "",
+    lastLoggedInDate: null,
+  },
   setUser: () => {},
 });
 
 const AuthProvider = ({ children }: any) => {
-  const [user, setUser] = useState<firebase.User | null>(() => {
-    const localUser = getWithExpiry("bulb_user");
+  const router = useRouter();
+  const [user, setUser] = useState<IUser | null>(() => {
+    const localUser: IUser = getWithExpiry("bulb_user");
     return (
       localUser || {
-        loggedInStatus: false,
         _id: "",
         username: "",
         fname: "",
@@ -40,6 +61,12 @@ const AuthProvider = ({ children }: any) => {
   useEffect(() => {
     setWithExpiry("bulb_user", user, 3600000);
   }, [user]);
+
+  useEffect(() => {
+    if (!user?._id) {
+      router.push("/login");
+    }
+  }, []);
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>
