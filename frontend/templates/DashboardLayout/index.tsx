@@ -1,10 +1,11 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { MdLightbulb, MdMenuOpen } from "react-icons/md";
 import { BsPersonBadgeFill } from "react-icons/bs";
 import { FaCog } from "react-icons/fa";
 import styles from "./DashboardLayout.module.scss";
 import Image from "next/image";
 import NavLink from "../../components/NavLink";
+import { getWithExpiry, setWithExpiry } from "../../utils/helper";
 
 export interface IDashboardLayoutProps {
   title: string;
@@ -17,7 +18,19 @@ const DashboardLayout = ({
   className,
   children,
 }: IDashboardLayoutProps) => {
-  const [isSideNavOpen, setIsSideNavOpen] = useState(false);
+  const [isSideNavOpen, setIsSideNavOpen] = useState(() => {
+    const localSideNav = getWithExpiry("bulb_sidenav");
+    console.log("isOpen? ", localSideNav);
+    if (localSideNav !== undefined) {
+      return localSideNav;
+    } else {
+      return true;
+    }
+  });
+
+  useEffect(() => {
+    setWithExpiry("bulb_sidenav", isSideNavOpen, 100000000);
+  }, [isSideNavOpen]);
   return (
     <div className={`${styles.DashboardLayout} ${className}`}>
       <aside
