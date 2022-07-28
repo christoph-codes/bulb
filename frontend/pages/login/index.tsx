@@ -1,9 +1,19 @@
 import Image from "next/image";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import LoginForm from "../../components/LoginForm/LoginForm";
 import styles from "./Login.module.scss";
+import { useAuth } from "../../providers/AuthProvider";
+import { useEffect } from "react";
 
 export default function Login() {
+  const router = useRouter();
+  const { user } = useAuth();
+  useEffect(() => {
+    if (!!user?._id) {
+      router.push("/dashboard");
+    }
+  }, []);
   return (
     <div className={styles.Login}>
       <Head>
