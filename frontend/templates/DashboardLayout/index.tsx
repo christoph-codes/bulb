@@ -1,11 +1,6 @@
-import { ReactNode, useEffect, useState } from "react";
-import { MdLightbulb, MdMenuOpen } from "react-icons/md";
-import { BsPersonBadgeFill } from "react-icons/bs";
-import { FaCog } from "react-icons/fa";
+import { ReactNode } from "react";
 import styles from "./DashboardLayout.module.scss";
-import Image from "next/image";
-import NavLink from "../../components/NavLink";
-import { getWithExpiry, setWithExpiry } from "../../utils/helper";
+import DashboardSideNav from "../../components/DashboardSideNav";
 
 export interface IDashboardLayoutProps {
   title: string;
@@ -18,102 +13,9 @@ const DashboardLayout = ({
   className,
   children,
 }: IDashboardLayoutProps) => {
-  const [isSideNavOpen, setIsSideNavOpen] = useState(() => {
-    const localSideNav = getWithExpiry("bulb_sidenav");
-    console.log("isOpen? ", localSideNav);
-    if (localSideNav !== undefined) {
-      return localSideNav;
-    } else {
-      return true;
-    }
-  });
-
-  useEffect(() => {
-    setWithExpiry("bulb_sidenav", isSideNavOpen, 100000000);
-  }, [isSideNavOpen]);
   return (
     <div className={`${styles.DashboardLayout} ${className}`}>
-      <aside
-        className={`${styles.DashboardLayout__aside} ${
-          isSideNavOpen ? "" : styles["DashboardLayout__aside--close"]
-        }`}
-      >
-        <div className={styles.DashboardLayout__logoTab}>
-          <img
-            className={`${styles.DashboardLayout__logo} ${
-              isSideNavOpen ? "" : styles["DashboardLayout__logo--close"]
-            }`}
-            src="/bulb_light_color.svg"
-            alt="bulb Logo"
-          />
-          <button
-            className={styles.DashboardLayout__hamburger}
-            onClick={() => setIsSideNavOpen(!isSideNavOpen)}
-          >
-            {isSideNavOpen ? (
-              <MdMenuOpen size={32} />
-            ) : (
-              <Image src="/bulb_icon.svg" alt="" width="48" height="48" />
-            )}
-          </button>
-        </div>
-        <ul
-          className={`${styles.DashboardLayout__links} ${
-            isSideNavOpen ? "" : styles["DashboardLayout__links--close"]
-          }`}
-        >
-          <li>
-            <NavLink
-              activeClassName={styles["DashboardLayout__link--active"]}
-              href="/dashboard"
-            >
-              <a>
-                <MdLightbulb
-                  className={`${styles.DashboardLayout__icon} ${
-                    isSideNavOpen ? "" : styles["DashboardLayout__icon--close"]
-                  }`}
-                />
-                {isSideNavOpen && " My Ideas"}
-              </a>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              activeClassName={styles["DashboardLayout__link--active"]}
-              href="/dashboard/connections"
-            >
-              <a>
-                <BsPersonBadgeFill
-                  className={`${styles.DashboardLayout__icon} ${
-                    isSideNavOpen ? "" : styles["DashboardLayout__icon--close"]
-                  }`}
-                />
-                {isSideNavOpen && " Connections"}
-              </a>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              activeClassName={styles["DashboardLayout__link--active"]}
-              href="/dashboard/settings"
-            >
-              <a>
-                <FaCog
-                  className={`${styles.DashboardLayout__icon} ${
-                    isSideNavOpen ? "" : styles["DashboardLayout__icon--close"]
-                  }`}
-                />
-                {isSideNavOpen && " Settings"}
-              </a>
-            </NavLink>
-          </li>
-        </ul>
-        {isSideNavOpen && (
-          <footer className={`${styles.DashboardLayout__footer}`}>
-            <p>Copyright © {new Date().getFullYear()}</p>
-          </footer>
-        )}
-      </aside>
+      <DashboardSideNav />
       <div className={`${styles.DashboardLayout__container}`}>
         <header className={styles.DashboardLayout__header}>
           <h3>{title}</h3>
