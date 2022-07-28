@@ -16,7 +16,7 @@ const IdeaList = () => {
 
   const getIdeasFromApi = () => {
     axios
-      .post("/api/ideas/user", { user: { id: user._id } })
+      .post("/api/ideas/user", { user: { id: user?._id } })
       .then(async (response) => {
         if (response.status === 200) {
           const data = await response.data.result;
