@@ -1,7 +1,9 @@
-import IdeaNote from '../IdeaNote/IdeaNote';
-import { useEffect, useState } from 'react';
-import router from 'next/router';
-import styles from '../../styles/List.module.sass';
+import IdeaNote from "../IdeaNote/IdeaNote";
+import { useEffect, useState } from "react";
+import router from "next/router";
+import styles from "./IdeaList.module.scss";
+import axios from "axios";
+import { useAuth } from "../../providers/AuthProvider";
 
 type Idea = {
   name: string;
@@ -9,16 +11,18 @@ type Idea = {
 };
 
 const IdeaList = () => {
+  const { user } = useAuth();
   const [ideaList, setIdeaList] = useState([]);
 
   const getIdeasFromApi = () => {
-    fetch('/api/ideas', { method: 'GET' })
+    axios
+      .post("/api/ideas/user", { user: { id: user?._id } })
       .then(async (response) => {
         if (response.status === 200) {
-          const data = await response.json();
+          const data = await response.data.result;
           setIdeaList(data);
         } else if (response.status === 401) {
-          router.push('/');
+          router.push("/");
         }
       })
       .catch((err) => {
@@ -31,7 +35,7 @@ const IdeaList = () => {
   }, []);
 
   return (
-    <ul className={styles.list}>
+    <ul className={styles.IdeaList}>
       {ideaList.map((idea: Idea, i: number) => {
         return (
           <li key={i}>

@@ -1,0 +1,77 @@
+@import '../../styles/colors.scss';
+.Button {
+	padding: 0.5rem 2rem;
+	border-radius: 50rem;
+	border-width: 2px;
+	border-style: solid;
+	transition: background-color 0.5s, color 0.5s;
+	font-size: 1.25rem;
+	cursor: pointer;
+	&__primary {
+		background-color: $primary;
+		border-color: $primary;
+		color: $white;
+		&:hover {
+			background-color: $primary-dark;
+		}
+		&-outline {
+			background-color: transparent;
+			border-color: $primary;
+			color: $primary;
+			&:hover {
+				background-color: $primary-dark;
+			}
+		}
+	}
+	&__secondary {
+		background-color: $secondary;
+		border-color: $secondary;
+		color: $white;
+		&:hover {
+			background-color: $secondary-dark;
+		}
+		&-outline {
+			background-color: transparent;
+			border-color: $secondary;
+			color: $secondary;
+			&:hover {
+				background-color: $secondary-dark;
+			}
+		}
+	}
+	&__tertiary {
+		background-color: $tertiary;
+		border-color: $tertiary;
+		color: $white;
+		&:hover {
+			background-color: $tertiary-dark;
+		}
+		&-outline {
+			background-color: transparent;
+			border-color: $tertiary;
+			color: $tertiary;
+			&:hover {
+				background-color: $tertiary-dark;
+			}
+		}
+	}
+	&__ghost {
+		background-color: transparent;
+		border-color: transparent;
+		color: $primary;
+		&:hover {
+			background-color: rgba(0 0 0 / 20%);
+		}
+		&-light {
+			background-color: transparent;
+			border-color: transparent;
+			color: $white;
+			&:hover {
+				background-color: rgba(255 255 255 / 20%);
+			}
+		}
+	}
+	.glow {
+		animation: glow 0.5s alternate infinite
+	}
+}

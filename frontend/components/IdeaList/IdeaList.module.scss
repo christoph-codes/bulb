@@ -1,0 +1,12 @@
+@import '../../styles/colors.scss';
+.IdeaList {
+  display: flex;
+  list-style-type: none;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 0;
+  gap: 1rem;
+  li {
+    margin: 0 auto;
+  }
+}

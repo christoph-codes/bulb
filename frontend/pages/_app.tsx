@@ -1,4 +1,6 @@
-import '../styles/globals.css';
+import AuthProvider from "../providers/AuthProvider";
+import EmulatorProvider from "../providers/EmulatorProvider";
+import "../styles/globals.scss";
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
 
@@ -8,7 +10,13 @@ interface IMyAppProps {
 }
 
 function MyApp({ Component, pageProps }: IMyAppProps) {
-  return <Component {...pageProps} />;
+  return (
+    <EmulatorProvider>
+      <AuthProvider>
+        <Component {...pageProps} />
+      </AuthProvider>
+    </EmulatorProvider>
+  );
 }
 
 export default MyApp;
