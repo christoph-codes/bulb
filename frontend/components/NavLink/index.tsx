@@ -5,9 +5,15 @@ import React, { useState, useEffect, ReactElement, Children } from "react";
 export interface INavLinkProps extends LinkProps {
   children: ReactElement;
   activeClassName: string;
+  newTab?: boolean;
 }
 
-const NavLink = ({ children, activeClassName, ...props }: INavLinkProps) => {
+const NavLink = ({
+  children,
+  activeClassName,
+  newTab,
+  ...props
+}: INavLinkProps) => {
   const { asPath, isReady } = useRouter();
 
   const child = Children.only(children);
@@ -48,7 +54,7 @@ const NavLink = ({ children, activeClassName, ...props }: INavLinkProps) => {
   ]);
 
   return (
-    <Link {...props}>
+    <Link target={newTab ? "_blank" : "_self"} {...props}>
       {React.cloneElement(child, {
         className: className || null,
       })}
