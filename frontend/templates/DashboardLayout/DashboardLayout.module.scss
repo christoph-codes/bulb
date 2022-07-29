@@ -6,6 +6,9 @@
 	}
 	&__main {
 		padding: 1rem 2rem;
+		@media(max-width: 25.875rem) {
+			padding: 1rem;
+		}
 		overflow-y: auto;
 	}
 }

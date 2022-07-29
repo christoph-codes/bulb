@@ -1,6 +1,9 @@
 @import '../../styles/colors.scss';
 .DashboardHeader {
 	padding: 1rem 2rem;
+	@media(max-width: 25.875rem) {
+		padding: 1rem;
+	}
 	height: 4.375rem;
 	background-color: $white;
 	display: flex;
