@@ -1,6 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import db from "../../../config/mongodb";
 
+/**
+ * Route to get the latest 25 ideas recently created
+ */
 export default async (req: NextApiRequest, res: NextApiResponse, next: any) => {
 	try {
 		const ideaCollection = await db('ideas');
