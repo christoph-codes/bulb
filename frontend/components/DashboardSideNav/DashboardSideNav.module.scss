@@ -52,13 +52,13 @@
 					background-color: $primary-dark-fade;
 					color: $white;
 					.DashboardSideNav__icon {
-						color: $white;
+						color: $secondary;
 					}
 				}
 			}
 			.DashboardSideNav__link--active {
 				background-color: $primary-dark-fade;
-				color: $secondary;
+				color: $white;
 				.DashboardSideNav__icon {
 					color: $secondary;
 				}
