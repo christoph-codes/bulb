@@ -1,0 +1,14 @@
+@import '../../styles/colors.scss';
+.DashboardLayout {
+	display: flex;
+	&__container {
+		width: 100%;
+	}
+	&__main {
+		padding: 1rem 2rem;
+		@media(max-width: 25.875rem) {
+			padding: 1rem;
+		}
+		overflow-y: auto;
+	}
+}

@@ -1,28 +1,39 @@
 import Head from "next/head";
-import Image from "next/image";
+import { MdAddCircleOutline } from "react-icons/md";
 import IdeaList from "../../components/IdeaList/IdeaList";
-import fullColorLogo from "../../public/bulb_full_color.svg";
+import DashboardLayout, {
+	TUtilityButton,
+} from "../../templates/DashboardLayout";
 import styles from "./Dashboard.module.scss";
 
 export default function Dashboard() {
-  return (
-    <div className={styles.container}>
-      <Head>
-        <title>Explore bulb</title>
-        <meta name="description" content="Dashboard page" />
-        <link rel="icon" href="/bulb-favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>Here are your current Ideas:</h1>
-        <IdeaList />
-      </main>
-
-      <footer className={styles.footer}>
-        <span className={styles.logo}>
-          <Image src={fullColorLogo} alt="bulb Logo" width={144} height={64} />
-        </span>
-      </footer>
-    </div>
-  );
+	const addIdea = () => {
+		console.log("adding idea...");
+	};
+	const utilityButtons: TUtilityButton[] = [
+		{
+			label: (
+				<>
+					<MdAddCircleOutline /> add idea
+				</>
+			),
+			onClick: () => addIdea(),
+			variant: "primary",
+			chip: true,
+		},
+	];
+	return (
+		<DashboardLayout
+			title="My Ideas"
+			className={styles.Dashboard}
+			utilityButtons={utilityButtons}
+		>
+			<Head>
+				<title>My Ideas » Bulb</title>
+				<meta name="description" content="My Ideas page" />
+				<link rel="icon" href="/bulb-favicon.ico" />
+			</Head>
+			<IdeaList />
+		</DashboardLayout>
+	);
 }

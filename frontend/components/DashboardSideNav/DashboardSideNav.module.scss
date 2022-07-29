@@ -1,0 +1,97 @@
+@import '../../styles/colors.scss';
+.DashboardSideNav {
+	&__aside {
+		width: 20rem;
+		background-color: $primary-dark;
+		transition: width 0.15s ease-in-out;
+		height: 100vh;
+		&--close {
+			width: 4rem;
+		}
+	}
+	&__logoTab {
+		padding: 0 1rem;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		background-color: $primary;
+		height: 4.375rem;
+	}
+	&__logo {
+		max-width: 5rem !important;
+		transition: width 0.15s ease-in-out;
+		&--close {
+			width: 0;
+		}
+	}
+	&__hamburger {
+		background-color: transparent;
+		border: none;
+		cursor: pointer;
+		color: $white;
+		margin: 0;
+		padding: 0;
+	}
+	&__links {
+		list-style-type: none;
+		padding: 0;
+		margin: 0;
+		li {
+			a {
+				padding: 1.5rem 1rem;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				flex-direction: row-reverse;
+				transition: ease-in-out .15s color;
+				transition: ease-in-out .15s background-color;
+				font-size: 1rem;
+				cursor: pointer;
+				color: $primary;
+				&:hover {
+					background-color: $primary-dark-fade;
+					color: $white;
+					.DashboardSideNav__icon {
+						color: $secondary;
+					}
+				}
+			}
+			.DashboardSideNav__link--active {
+				background-color: $primary-dark-fade;
+				color: $white;
+				.DashboardSideNav__icon {
+					color: $secondary;
+				}
+			}
+		}
+		&--close {
+			li {
+				justify-content: center;
+				
+			}
+		}
+	}
+	
+	&__icon {
+		font-size: 1.5rem;
+		margin-right: 1rem;
+		transition: margin 0.15s ease-in-out;
+		color: $primary;
+		transition: ease-in-out .15s color;
+		&--close {
+			margin-right: 0;
+		}
+	}
+	&__footer {
+		margin-top: auto;
+		height: 3rem;
+		p {
+			padding: 1rem;
+			border-top: solid 1px $primary-dark-fade;
+			font-size: 0.75rem;
+			color: $primary;
+			text-align: center;
+			margin: 0;
+		}
+	}
+}
