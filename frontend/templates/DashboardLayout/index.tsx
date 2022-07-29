@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import styles from "./DashboardLayout.module.scss";
 import DashboardSideNav from "../../components/DashboardSideNav";
+import DashboardHeader from "../../components/DashboardHeader";
 
 export interface IDashboardLayoutProps {
   title: string;
@@ -17,9 +18,7 @@ const DashboardLayout = ({
     <div className={`${styles.DashboardLayout} ${className}`}>
       <DashboardSideNav />
       <div className={`${styles.DashboardLayout__container}`}>
-        <header className={styles.DashboardLayout__header}>
-          <h3>{title}</h3>
-        </header>
+        <DashboardHeader title={title} />
         <main className={styles.DashboardLayout__main}>{children}</main>
       </div>
     </div>
