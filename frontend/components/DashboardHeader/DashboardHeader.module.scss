@@ -1,0 +1,81 @@
+@import '../../styles/colors.scss';
+.DashboardHeader {
+	padding: 1rem 2rem;
+	height: 4.375rem;
+	background-color: $white;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	position: relative;
+	h3 {
+		color: $primary;
+	}
+	nav {
+		list-style: none;
+		display: inline-flex;
+		gap: 1rem;
+		align-items: center;
+		li {
+			color: $primary-dark;
+			&:last-of-type {
+				background-color: $tertiary-white;
+				color: $tertiary-light;
+			}
+		}
+	}
+	&__avatar {
+		box-sizing: border-box;
+		background-color: transparent;
+		padding: 0;
+		margin: 0;
+		box-shadow: 0 0 10px -5px rgba(0 0 0 / 30%);
+		border-radius: 999px;
+		border: solid 4px white;	
+		width: 3rem;
+		height: 3rem;
+		cursor: pointer;
+		transition: box-shadow 0.15s ease-in-out;
+		position: relative;
+		&:hover {
+			box-shadow: 0 0 10px -5px rgba(0 0 0 / 80%);
+		}
+		img {
+			width: 100%;
+		}
+	}
+	&__dropdown {
+		background-color: $white;
+		position: absolute;
+		right: 0;
+		border-radius: 0.5rem;
+		box-shadow: 0 0 0.5rem -0.25rem rgb(0 0 0 / 50%);
+		padding-left: 0;
+		margin: 0;
+		list-style: none;
+		min-width: 10rem;
+		overflow: hidden;
+		margin-top: 0.5rem;
+		display: block;
+		li {
+			a {
+				padding: 1rem;
+				display: flex;
+				justify-content: flex-start;
+				&:hover {
+					background-color: $primary-white;
+					color: $primary;
+				}
+			}
+			&:last-of-type {
+				a {
+					&:hover {
+						background-color: $tertiary-white;
+						color: $tertiary;
+					}
+				}
+				
+			}
+		}
+		
+	}
+}
