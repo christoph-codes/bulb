@@ -12,6 +12,7 @@ To get started run the following command to install dependencies for the fronten
 Once the install is complete. Start the backend server.
 
 ```yarn emu```
+
 Starts the firebase emulators for mimicking authentication. Navigate to [http://localhost:4000/auth](http://localhost:4000/auth) to check emulator is running properly.
 
 ```yarn start```
