@@ -2,15 +2,12 @@
   "name": "bulb",
   "version": "1.0.0",
   "description": "Bulb, the idea community for ideators",
-  "main": "backend/index.js",
+  "main": "frontned/index.js",
   "scripts": {
-    "install": "cd backend && npm install",
-    "backend": "cd backend && heroku local web",
-    "emu": "cd backend && firebase emulators:start",
-    "frontend": "cd frontend && npm run dev",
-    "kill": "kill-port 5000 #This is to kill port 5000 for the backend",
-    "start": "node backend/index.js",
-    "dev": "cd backend && heroku local web"
+    "install": "cd frontend && yarn",
+    "emu": "cd frontend && firebase emulators:start",
+    "kill": "kill-port 3000 4000",
+    "dev": "cd frontend && yarn dev"
   },
   "repository": {
     "type": "git",
@@ -23,7 +20,8 @@
     "express",
     "javascript",
     "html",
-    "css"
+    "css",
+	"typescript",
   ],
   "author": "Christopher Jones",
   "license": "ISC",
