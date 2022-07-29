@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
+import { TUtilityButton } from "../../templates/DashboardLayout";
+import Button from "../Button/Button";
 import NavLink from "../NavLink";
 import styles from "./DashboardHeader.module.scss";
 
 export interface IDashboardHeaderProps {
 	className?: string;
 	title: string;
+	utilityButtons?: TUtilityButton[];
 }
 type TLink = {
 	name: string;
@@ -12,7 +15,11 @@ type TLink = {
 	newTab?: boolean;
 };
 
-const DashboardHeader = ({ title, className }: IDashboardHeaderProps) => {
+const DashboardHeader = ({
+	title,
+	className,
+	utilityButtons,
+}: IDashboardHeaderProps) => {
 	const [dropdownOpen, setDropdownOpen] = useState(false);
 	const links: TLink[] = [
 		{
@@ -36,7 +43,21 @@ const DashboardHeader = ({ title, className }: IDashboardHeaderProps) => {
 			className={`${styles.DashboardHeader} ${className}`}
 			onClick={() => setDropdownOpen(false)}
 		>
-			<h3>{title}</h3>
+			<span>
+				<h3>{title}</h3>
+				{utilityButtons?.map((utility, index) => {
+					return (
+						<Button
+							href={utility.href}
+							onClick={utility.onClick}
+							variant={utility.variant}
+							chip={utility.chip}
+						>
+							{utility.label}
+						</Button>
+					);
+				})}
+			</span>
 			<nav>
 				<button
 					className={styles["DashboardHeader__avatar"]}

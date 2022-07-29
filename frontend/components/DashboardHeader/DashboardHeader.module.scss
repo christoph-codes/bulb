@@ -7,9 +7,15 @@
 	align-items: center;
 	justify-content: space-between;
 	position: relative;
-	h3 {
-		color: $primary;
+	span {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		h3 {
+			color: $primary;
+		}
 	}
+	
 	nav {
 		list-style: none;
 		display: inline-flex;
