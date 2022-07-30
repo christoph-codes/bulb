@@ -2,7 +2,6 @@
   "name": "bulb",
   "version": "1.0.0",
   "description": "Bulb, the idea community for ideators",
-  "main": "frontned/index.js",
   "scripts": {
     "install": "cd frontend && yarn",
     "emu": "cd frontend && firebase emulators:start",
@@ -28,8 +27,5 @@
   "bugs": {
     "url": "https://github.com/christoph-codes/bulb/issues"
   },
-  "homepage": "https://github.com/christoph-codes/bulb#readme",
-  "dependencies": {
-    "mongodb": "^4.1.4"
-  }
+  "homepage": "https://github.com/christoph-codes/bulb#readme"
 }
