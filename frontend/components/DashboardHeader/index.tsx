@@ -48,6 +48,7 @@ const DashboardHeader = ({
 				{utilityButtons?.map((utility, index) => {
 					return (
 						<Button
+							key={index}
 							href={utility.href}
 							onClick={utility.onClick}
 							variant={utility.variant}
