@@ -9,7 +9,7 @@ export default async (req: NextApiRequest, res: NextApiResponse, next: any) => {
 	try {
 		const ideaCollection = await db('ideas');
 		const result = await ideaCollection
-			.find({ visibility: 'public', _id: id })
+			.find({ visibility: 'public', ownerId: id })
 			.sort({ creationDate: -1 })
 			.toArray();
 		res.status(200).send({
