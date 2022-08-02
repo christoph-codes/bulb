@@ -1,0 +1,12 @@
+.Dashboard {
+	&__addIdea {
+		height: 0;
+		overflow: hidden;
+		transition: height 0.30s ease-in-out, overflow 0.30s ease-in-out;
+		&--open {
+			height: 230px;
+			overflow: auto;
+			transition: height 0.30s ease-in-out, overflow 0.30s ease-in-out;
+		}
+	}
+}

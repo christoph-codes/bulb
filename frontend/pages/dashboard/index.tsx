@@ -1,10 +1,11 @@
 import axios from "axios";
 import Head from "next/head";
-import { ChangeEvent, FormEvent, useState } from "react";
-import { MdAddCircleOutline } from "react-icons/md";
+import { ChangeEvent, FormEvent, ReactNode, useState } from "react";
+import { MdAddCircleOutline, MdCelebration } from "react-icons/md";
 import Button from "../../components/Button/Button";
 import IdeaList from "../../components/IdeaList/IdeaList";
 import Input from "../../components/Input/Input";
+import Modal from "../../components/Modal/Modal";
 import { useAuth } from "../../providers/AuthProvider";
 import { useIdeas } from "../../providers/IdeaProvider";
 import DashboardLayout, {
@@ -15,13 +16,12 @@ import styles from "./Dashboard.module.scss";
 export default function Dashboard() {
 	const { user } = useAuth();
 	const { ideas, getIdeas } = useIdeas();
+	const [openIdeaDropdown, setOpenIdeaDropdown] = useState(false);
 	const [values, setValues] = useState({
 		description: "",
 	});
 	const [formError, setFormError] = useState("");
-	const openIdeaDropdown = () => {
-		console.log("Open Idea Dropdown");
-	};
+	const [modalContent, setModalContent] = useState<ReactNode>(null);
 	const addIdea = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		console.log("adding idea...");
@@ -35,6 +35,13 @@ export default function Dashboard() {
 				})
 				.then((response) => {
 					setFormError("");
+					setIsModalOpen(true);
+					setModalContent(
+						<>
+							<MdCelebration />
+							<h2>{response.data.message}</h2>
+						</>
+					);
 					console.log("create idea response:", response.data);
 					getIdeas();
 				})
@@ -53,7 +60,7 @@ export default function Dashboard() {
 					<MdAddCircleOutline /> add idea
 				</>
 			),
-			onClick: () => openIdeaDropdown(),
+			onClick: () => setOpenIdeaDropdown(!openIdeaDropdown),
 			variant: "primary",
 			chip: true,
 		},
@@ -62,6 +69,7 @@ export default function Dashboard() {
 		const { name, value } = e.target;
 		setValues({ ...values, [name]: value });
 	};
+	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	return (
 		<DashboardLayout
@@ -74,7 +82,16 @@ export default function Dashboard() {
 				<meta name="description" content="My Ideas page" />
 				<link rel="icon" href="/bulb-favicon.ico" />
 			</Head>
-			<form onSubmit={addIdea}>
+			<Modal open={isModalOpen}>{modalContent}</Modal>
+			<form
+				onSubmit={addIdea}
+				className={
+					styles[
+						`Dashboard__addIdea${openIdeaDropdown ? "--open" : ""}`
+					]
+				}
+			>
+				<h2>Add a New Idea</h2>
 				<Input
 					type="description"
 					name="description"
