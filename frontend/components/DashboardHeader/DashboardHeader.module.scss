@@ -1,6 +1,7 @@
 @import '../../styles/colors.scss';
 .DashboardHeader {
 	padding: 1rem 2rem;
+	z-index: 2;
 	@media(max-width: 25.875rem) {
 		padding: 1rem;
 	}
