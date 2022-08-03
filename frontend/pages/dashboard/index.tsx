@@ -21,7 +21,8 @@ export default function Dashboard() {
 		description: "",
 	});
 	const [formError, setFormError] = useState("");
-	const [modalContent, setModalContent] = useState<ReactNode>(null);
+	const [modalResponseMessage, setModalResponseMessage] =
+		useState<ReactNode>("");
 	const addIdea = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		console.log("adding idea...");
@@ -36,13 +37,7 @@ export default function Dashboard() {
 				.then((response) => {
 					setFormError("");
 					setIsModalOpen(true);
-					setModalContent(
-						<>
-							<MdCelebration />
-							<h2>{response.data.message}</h2>
-						</>
-					);
-					console.log("create idea response:", response.data);
+					setModalResponseMessage(response.data.message);
 					getIdeas();
 				})
 				.catch((err) => {
@@ -82,7 +77,14 @@ export default function Dashboard() {
 				<meta name="description" content="My Ideas page" />
 				<link rel="icon" href="/bulb-favicon.ico" />
 			</Head>
-			<Modal open={isModalOpen}>{modalContent}</Modal>
+			<Modal open={isModalOpen} setOpen={setIsModalOpen}>
+				<MdCelebration
+					color="#FFC022"
+					className={styles.Dashboard__modal}
+					size="48"
+				/>
+				{modalResponseMessage && <h2>{modalResponseMessage}</h2>}
+			</Modal>
 			<form
 				onSubmit={addIdea}
 				className={
