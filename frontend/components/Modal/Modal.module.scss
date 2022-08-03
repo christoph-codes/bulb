@@ -1,13 +1,34 @@
+@import '../../styles/colors.scss';
 .Modal {
-	border: none;
-    border-radius: 0.5rem;
-    padding: 2rem;
-    text-align: center;
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
-	button {
-		margin-left: auto;
-		margin-right: auto;
+	&__content {
+		border: none;
+		border-radius: 0.5rem;
+		padding: 2rem;
+		text-align: center;
+		flex-direction: column;
+		z-index: 11;
+		background: $white;
+		position: absolute;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		min-width: 60%;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		button {
+			margin-left: auto;
+			margin-right: auto;
+		}
+	}
+	&__backdrop {
+		background-color: rgba(0 0 0 / 70%);
+	    display: block;
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    right: 0;
+	    bottom: 0;
+	    z-index: 10;
 	}
 }

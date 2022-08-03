@@ -5,26 +5,23 @@ import styles from "./Modal.module.scss";
 export interface IModalProps {
 	children: ReactNode;
 	open: boolean;
+	setOpen: (x: boolean) => void;
 }
 
-const Modal = ({ children, open }: IModalProps) => {
-	const modalRef = useRef<HTMLDialogElement>(null);
-	const toggleModal = () => {
-		if (modalRef.current?.open) {
-			modalRef?.current?.close();
-		} else {
-			modalRef?.current?.showModal();
-		}
-	};
-	useLayoutEffect(() => {
-		toggleModal();
-	}, [open]);
-	return (
-		<dialog ref={modalRef} className={styles.Modal}>
-			{children}
-			<Button onClick={() => toggleModal()}>Close</Button>
-		</dialog>
-	);
+const Modal = ({ children, open, setOpen }: IModalProps) => {
+	if (open) {
+		document.body.style.overflow = "hidden";
+		return (
+			<div className={styles.Modal}>
+				<div className={styles.Modal__content}>
+					{children}
+					<Button onClick={() => setOpen(false)}>Close</Button>
+				</div>
+				<div className={styles.Modal__backdrop}></div>
+			</div>
+		);
+	}
+	return null;
 };
 
 export default Modal;
