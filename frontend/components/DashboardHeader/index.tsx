@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { TUtilityButton } from "../../templates/DashboardLayout";
-import Button from "../Button/Button";
-import NavLink from "../NavLink";
-import styles from "./DashboardHeader.module.scss";
+import { useEffect, useState } from 'react';
+import { TUtilityButton } from '../../templates/DashboardLayout';
+import Button from '../Button/Button';
+import NavLink from '../NavLink';
+import styles from './DashboardHeader.module.scss';
 
 export interface IDashboardHeaderProps {
 	className?: string;
@@ -23,18 +23,18 @@ const DashboardHeader = ({
 	const [dropdownOpen, setDropdownOpen] = useState(false);
 	const links: TLink[] = [
 		{
-			name: "Profile",
-			path: "/profile",
+			name: 'Profile',
+			path: '/profile',
 			newTab: false,
 		},
 		{
-			name: "Help",
-			path: "/help",
+			name: 'Help',
+			path: '/help',
 			newTab: true,
 		},
 		{
-			name: "Logout",
-			path: "/logout",
+			name: 'Logout',
+			path: '/logout',
 			newTab: false,
 		},
 	];
@@ -48,6 +48,7 @@ const DashboardHeader = ({
 				{utilityButtons?.map((utility, index) => {
 					return (
 						<Button
+							key={index}
 							href={utility.href}
 							onClick={utility.onClick}
 							variant={utility.variant}
@@ -60,11 +61,11 @@ const DashboardHeader = ({
 			</span>
 			<nav>
 				<button
-					className={styles["DashboardHeader__avatar"]}
+					className={styles['DashboardHeader__avatar']}
 					onMouseOver={() => setDropdownOpen(true)}
 					onClick={() => setDropdownOpen(!dropdownOpen)}
 				>
-					<img src="/bulb_avatar_placeholder.svg" alt="" />
+					<img src='/bulb_avatar_placeholder.svg' alt='' />
 					{dropdownOpen && (
 						<ul
 							onMouseLeave={() => setDropdownOpen(false)}
@@ -76,7 +77,7 @@ const DashboardHeader = ({
 										<NavLink
 											activeClassName={
 												styles[
-													"DashboardHeader__link--active"
+													'DashboardHeader__link--active'
 												]
 											}
 											href={link.path}
