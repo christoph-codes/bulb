@@ -1,15 +1,16 @@
-import { ReactElement, ReactNode } from "react";
-import styles from "./DashboardLayout.module.scss";
-import DashboardSideNav from "../../components/DashboardSideNav";
-import DashboardHeader from "../../components/DashboardHeader";
-import { IButtonProps } from "../../components/Button/Button";
+import { ReactElement, ReactNode } from 'react';
+import styles from './DashboardLayout.module.scss';
+import DashboardSideNav from '../../components/DashboardSideNav';
+import DashboardHeader from '../../components/DashboardHeader';
+import { IButtonProps } from '../../components/Button/Button';
+import { LinkProps } from 'next/link';
 
 export type TUtilityButton = {
 	label?: string | ReactElement;
 	onClick?: () => void;
-	href?: string;
-	variant?: IButtonProps["variant"];
-	chip?: IButtonProps["chip"];
+	href?: LinkProps['href'];
+	variant?: IButtonProps['variant'];
+	chip?: IButtonProps['chip'];
 };
 export interface IDashboardLayoutProps {
 	title: string;
