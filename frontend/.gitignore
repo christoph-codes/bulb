@@ -37,3 +37,6 @@ yarn-error.log*
 
 # test API
 # /pages/api/*
+
+# Firebase
+firebase-debug.log
