@@ -1,37 +1,38 @@
-import { ButtonHTMLAttributes, ReactElement, ReactNode } from "react";
-import styles from "./Button.module.scss";
+import { LinkProps } from 'next/link';
+import { ButtonHTMLAttributes, ReactElement, ReactNode } from 'react';
+import styles from './Button.module.scss';
 
 export interface IButtonProps
 	extends ButtonHTMLAttributes<HTMLButtonElement & HTMLAnchorElement> {
 	variant?:
-		| "primary"
-		| "primary-outline"
-		| "secondary"
-		| "secondary-outline"
-		| "tertiary"
-		| "tertiary-outline"
-		| "ghost"
-		| "ghost-light";
-	href?: string;
+		| 'primary'
+		| 'primary-outline'
+		| 'secondary'
+		| 'secondary-outline'
+		| 'tertiary'
+		| 'tertiary-outline'
+		| 'ghost'
+		| 'ghost-light';
+	href?: LinkProps['href'];
 	children: ReactNode;
 	chip?: boolean;
 }
 
 const Button = ({
-	variant = "primary",
+	variant = 'primary',
 	href,
 	children,
 	className,
 	chip = false,
 	...rest
 }: IButtonProps) => {
-	const Tag: "button" | "a" = href ? "a" : "button";
+	const Tag: 'button' | 'a' = href ? 'a' : 'button';
 	return (
 		<Tag
-			type="button"
+			type='button'
 			className={`${styles.Button} ${
 				styles[`Button__${variant}`]
-			} ${className} ${chip ? styles[`Button__chip`] : ""}`}
+			} ${className} ${chip ? styles[`Button__chip`] : ''}`}
 			{...rest}
 		>
 			{children}
