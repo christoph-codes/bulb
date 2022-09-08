@@ -1,41 +1,36 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { Url } from 'url';
+import { useAuth } from '../../providers/AuthProvider';
 import { TUtilityButton } from '../../templates/DashboardLayout';
 import Button from '../Button/Button';
 import NavLink from '../NavLink';
 import styles from './DashboardHeader.module.scss';
 
+export type TLink = {
+	label: string;
+	href: any;
+};
 export interface IDashboardHeaderProps {
 	className?: string;
 	title: string;
 	utilityButtons?: TUtilityButton[];
 }
-type TLink = {
-	name: string;
-	path: string;
-	newTab?: boolean;
-};
 
 const DashboardHeader = ({
 	title,
 	className,
 	utilityButtons,
 }: IDashboardHeaderProps) => {
+	const { logout } = useAuth();
 	const [dropdownOpen, setDropdownOpen] = useState(false);
 	const links: TLink[] = [
 		{
-			name: 'Profile',
-			path: '/profile',
-			newTab: false,
+			label: 'Profile',
+			href: '/profile',
 		},
 		{
-			name: 'Help',
-			path: '/help',
-			newTab: true,
-		},
-		{
-			name: 'Logout',
-			path: '/logout',
-			newTab: false,
+			label: 'Help',
+			href: '/help',
 		},
 	];
 	return (
@@ -80,10 +75,9 @@ const DashboardHeader = ({
 													'DashboardHeader__link--active'
 												]
 											}
-											href={link.path}
-											newTab={link.newTab}
+											href={link.href}
 										>
-											<a>{link.name}</a>
+											<a>{link.label}</a>
 										</NavLink>
 									</li>
 								);
